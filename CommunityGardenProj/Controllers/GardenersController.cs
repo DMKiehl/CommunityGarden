@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using CommunityGardenProj.Data;
+using CommunityGardenProj.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,6 +42,7 @@ namespace CommunityGardenProj.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
+
             try
             {
                 return RedirectToAction(nameof(Index));
