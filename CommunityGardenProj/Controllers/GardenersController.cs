@@ -46,18 +46,10 @@ namespace CommunityGardenProj.Controllers
         }
 
         // GET: GardenersController/Create
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View();
         }
-
 
         // POST: GardenersController/Create
         [HttpPost]
