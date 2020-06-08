@@ -9,7 +9,7 @@ namespace CommunityGardenProj.Models
     public class Address
     {
         [Key]
-        public int addressId { get; set; }
+        public double addressId { get; set; }
 
         public string streetAddress { get; set; }
         public string city { get; set; }
