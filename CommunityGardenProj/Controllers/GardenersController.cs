@@ -103,7 +103,7 @@ namespace CommunityGardenProj.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("GardenerId,FirstName,LastName,Email,GardenInterest,AddressId,IdentityUserId")] Gardener gardener)
         {
 
-            if (id != gardener.gardenerId)
+            if (id != gardener.GardenerId)
             {
                 return NotFound();
             }
@@ -117,7 +117,7 @@ namespace CommunityGardenProj.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!GardenerExists(gardener.gardenerId))
+                    if (!GardenerExists(gardener.GardenerId))
                     {
                         return NotFound();
                     }
@@ -153,7 +153,7 @@ namespace CommunityGardenProj.Controllers
         }
         private bool GardenerExists(int id)
         {
-            return _context.Gardeners.Any(e => e.gardenerId == id);
+            return _context.Gardeners.Any(e => e.GardenerId == id);
         }
     }
 }
