@@ -22,13 +22,13 @@ namespace CommunityGardenProj.ActionFilters
             var controller = context.RouteData.Values["controller"];
             if (controller.Equals("Home"))
             {
-                if (_claimsPrincipal.IsInRole("Customer"))
+                if (_claimsPrincipal.IsInRole("Gardener"))
                 {
-                    context.Result = new RedirectToActionResult("Index", "Customers", null);
+                    context.Result = new RedirectToActionResult("Index", "Gardener", null);
                 }
-                else if (_claimsPrincipal.IsInRole("Employee"))
+                else if (_claimsPrincipal.IsInRole("Admin"))
                 {
-                    context.Result = new RedirectToActionResult("Index", "Employees", null);
+                    context.Result = new RedirectToActionResult("Index", "Admin", null);
                 }
             }
           
