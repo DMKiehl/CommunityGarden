@@ -18,7 +18,7 @@ namespace CommunityGardenProj.Models
 
         public double zip { get; set; }
 
-        public int latitude { get; set; }
+        public double latitude { get; set; }
 
         public double longitude { get; set; }
     }
