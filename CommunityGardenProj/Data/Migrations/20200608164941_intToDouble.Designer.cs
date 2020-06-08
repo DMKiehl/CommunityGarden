@@ -4,14 +4,16 @@ using CommunityGardenProj.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CommunityGardenProj.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200608164941_intToDouble")]
+    partial class intToDouble
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,8 +50,8 @@ namespace CommunityGardenProj.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "de960b7d-83b7-4006-9dff-73fd03148bb7",
-                            ConcurrencyStamp = "d8659b04-b884-4298-b78e-dfbd30d7ab3d",
+                            Id = "bd0487c3-ff19-48a1-b4be-61f621903eab",
+                            ConcurrencyStamp = "528ca52c-385c-45f0-b25e-662c9c6f0c17",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
