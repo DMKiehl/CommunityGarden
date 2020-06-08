@@ -7,6 +7,8 @@ using CommunityGardenProj.Data;
 using CommunityGardenProj.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace CommunityGardenProj.Controllers
 {
@@ -26,16 +28,40 @@ namespace CommunityGardenProj.Controllers
         }
 
         // GET: GardenersController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+
+            if (gardener == null)
+            {
+                return NotFound();
+            }
+
+            return View(gardener);
         }
 
         // GET: GardenersController/Create
-        public ActionResult Create()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("GardenerId,FirstName,LastName,Email,GardenInterest,AddressId")] Gardener gardener)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                gardener.IdentityUserId = userId;
+                _context.Add(gardener);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", gardener.IdentityUserId);
+            return View(gardener);
         }
+
 
         // POST: GardenersController/Create
         [HttpPost]
@@ -54,24 +80,55 @@ namespace CommunityGardenProj.Controllers
         }
 
         // GET: GardenersController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var gardener = await _context.Gardeners.FindAsync(id);
+
+            if (gardener == null)
+            {
+                return NotFound();
+            }
+
+            return View(gardener);
         }
 
         // POST: GardenersController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("GardenerId,FirstName,LastName,Email,GardenInterest,AddressId,IdentityUserId")] Gardener gardener)
         {
-            try
+
+            if (id != gardener.gardenerId)
             {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(gardener);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!GardenerExists(gardener.gardenerId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(gardener);
         }
 
         // GET: GardenersController/Delete/5
@@ -93,6 +150,10 @@ namespace CommunityGardenProj.Controllers
             {
                 return View();
             }
+        }
+        private bool GardenerExists(int id)
+        {
+            return _context.Gardeners.Any(e => e.gardenerId == id);
         }
     }
 }

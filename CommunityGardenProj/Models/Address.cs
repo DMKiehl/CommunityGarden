@@ -9,17 +9,17 @@ namespace CommunityGardenProj.Models
     public class Address
     {
         [Key]
-        public double addressId { get; set; }
+        public double AddressId { get; set; }
 
-        public string streetAddress { get; set; }
-        public string city { get; set; }
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
 
-        public string state { get; set; }
+        public string State { get; set; }
 
-        public double zip { get; set; }
+        public double Zip { get; set; }
 
-        public double latitude { get; set; }
+        public double Latitude { get; set; }
 
-        public double longitude { get; set; }
+        public double Longitude { get; set; }
     }
 }
