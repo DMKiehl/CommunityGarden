@@ -46,29 +46,8 @@ namespace CommunityGardenProj.Controllers
         }
 
         // GET: GardenersController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GardenerId,FirstName,LastName,Email,GardenInterest,AddressId")] Gardener gardener)
-        {
-            if (ModelState.IsValid)
-            {
-                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                gardener.IdentityUserId = userId;
-                _context.Add(gardener);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", gardener.IdentityUserId);
-            return View(gardener);
-        }
-
-
-        // POST: GardenersController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
-
             try
             {
                 return RedirectToAction(nameof(Index));
@@ -79,6 +58,27 @@ namespace CommunityGardenProj.Controllers
             }
         }
 
+
+        // POST: GardenersController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("GardenerId,FirstName,LastName,Email,GardenInterest,AddressId")] GardenerViewModel gardenerViewModel)
+        {              
+            Gardener gardener = new Gardener();
+            Address address = new Address();
+
+            if (ModelState.IsValid)
+            {
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                gardener.IdentityUserId = userId;
+                _context.Add(gardener);
+                _context.Add(address);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", gardener.IdentityUserId);
+            return View(gardener);
+        }
         // GET: GardenersController/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
