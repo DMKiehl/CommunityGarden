@@ -11,16 +11,16 @@ namespace CommunityGardenProj.Models
     public class Gardener
     {
         [Key]
-        public int gardenerId { get; set; }
-        public string firstName { get; set; }
-        public string lastName { get; set; }
+        public int GardenerId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
 
-        public string email { get; set; }
-        public string gardenInterest { get; set; }
+        public string Email { get; set; }
+        public string GardenInterest { get; set; }
 
-        [ForeignKey("addressId")]
-        public Address address { get; set; }
-        public double addressId { get; set; }
+        [ForeignKey("AddressId")]
+        public Address Address { get; set; }
+        public double AddressId { get; set; }
 
 
         [ForeignKey("IdentityUser")]
