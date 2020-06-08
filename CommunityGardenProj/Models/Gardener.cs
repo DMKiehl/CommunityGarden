@@ -15,10 +15,7 @@ namespace CommunityGardenProj.Models
         public string firstName { get; set; }
         public string lastName { get; set; }
 
-        public int latitude { get; set; }
-
-        public double longitude { get; set; }
-
+        public string email { get; set; }
         public string gardenInterest { get; set; }
 
         [ForeignKey("addressId")]

@@ -4,14 +4,16 @@ using CommunityGardenProj.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CommunityGardenProj.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200608164140_address model")]
+    partial class addressmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,8 +50,8 @@ namespace CommunityGardenProj.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bd0487c3-ff19-48a1-b4be-61f621903eab",
-                            ConcurrencyStamp = "528ca52c-385c-45f0-b25e-662c9c6f0c17",
+                            Id = "bc9deb47-53f9-437b-83bb-2f7c0adf7125",
+                            ConcurrencyStamp = "dedf8f66-9d33-4ee9-92e2-8ced0d224457",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
