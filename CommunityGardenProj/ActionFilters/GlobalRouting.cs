@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace CommunityGardenProj.ActionFilters
 {
-    public class GlobalRouting:IActionFilters
+    public class GlobalRouting : IActionFilter
     {
-        private readonly ClaimsPrincipal claimsPrincipal;
-        private ClaimsPrincipal _claimsPrincipal;
+       
+        private readonly ClaimsPrincipal _claimsPrincipal;
 
         public GlobalRouting(ClaimsPrincipal claimsPrincipal)
         {
@@ -24,7 +24,7 @@ namespace CommunityGardenProj.ActionFilters
             {
                 if (_claimsPrincipal.IsInRole("Gardener"))
                 {
-                    context.Result = new RedirectToActionResult("Index", "Gardener", null);
+                    context.Result = new RedirectToActionResult("Create", "Gardeners", null);
                 }
                 else if (_claimsPrincipal.IsInRole("Admin"))
                 {

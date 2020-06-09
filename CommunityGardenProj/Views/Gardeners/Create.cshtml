@@ -1,0 +1,98 @@
+﻿@model CommunityGardenProj.Models.GardenerViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>GardenerViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Gardener.GardenerId" class="control-label"></label>
+                <input asp-for="Gardener.GardenerId" class="form-control" />
+                <span asp-validation-for="Gardener.GardenerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gardener.FirstName" class="control-label"></label>
+                <input asp-for="Gardener.FirstName" class="form-control" />
+                <span asp-validation-for="Gardener.FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gardener.LastName" class="control-label"></label>
+                <input asp-for="Gardener.LastName" class="form-control" />
+                <span asp-validation-for="Gardener.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gardener.Email" class="control-label"></label>
+                <input asp-for="Gardener.Email" class="form-control" />
+                <span asp-validation-for="Gardener.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gardener.GardenInterest" class="control-label"></label>
+                <input asp-for="Gardener.GardenInterest" class="form-control" />
+                <span asp-validation-for="Gardener.GardenInterest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gardener.AddressId" class="control-label"></label>
+                <input asp-for="Gardener.AddressId" class="form-control" />
+                <span asp-validation-for="Gardener.AddressId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gardener.IdentityUserId" class="control-label"></label>
+                <input asp-for="Gardener.IdentityUserId" class="form-control" />
+                <span asp-validation-for="Gardener.IdentityUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.AddressId" class="control-label"></label>
+                <input asp-for="Address.AddressId" class="form-control" />
+                <span asp-validation-for="Address.AddressId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.StreetAddress" class="control-label"></label>
+                <input asp-for="Address.StreetAddress" class="form-control" />
+                <span asp-validation-for="Address.StreetAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.City" class="control-label"></label>
+                <input asp-for="Address.City" class="form-control" />
+                <span asp-validation-for="Address.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.State" class="control-label"></label>
+                <input asp-for="Address.State" class="form-control" />
+                <span asp-validation-for="Address.State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Zip" class="control-label"></label>
+                <input asp-for="Address.Zip" class="form-control" />
+                <span asp-validation-for="Address.Zip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Latitude" class="control-label"></label>
+                <input asp-for="Address.Latitude" class="form-control" />
+                <span asp-validation-for="Address.Latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address.Longitude" class="control-label"></label>
+                <input asp-for="Address.Longitude" class="form-control" />
+                <span asp-validation-for="Address.Longitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
