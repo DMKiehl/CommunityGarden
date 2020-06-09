@@ -108,10 +108,10 @@ namespace CommunityGardenProj.Controllers
 
         // POST: GardenersController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("GardenerId,FirstName,LastName,Email,GardenInterest,AddressId,IdentityUserId")] Gardener gardener)
-        {
 
+        public async Task<IActionResult> Edit(int id, Gardener gardener)
+        {
+            
             if (id != gardener.GardenerId)
             {
                 return NotFound();
