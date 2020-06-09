@@ -20,5 +20,14 @@ namespace Repository.Data
             return gardens;
         }
 
+        public void CreateGarden(Garden garden)
+        {
+            Create(garden);
+        }
+
+        public void EditGarden(Garden garden)
+        {
+            Update(garden);
+        }
     }
 }
