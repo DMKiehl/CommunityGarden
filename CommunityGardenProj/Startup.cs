@@ -50,11 +50,7 @@ namespace CommunityGardenProj
             services.AddScoped<IAPIService, APICalls>();
 
             //services.AddDbContext<ApplicationDbContext>(options =>
-<<<<<<< HEAD
-            //        options.UseSqlServer(Configuration.GetConnectionString("CommunityGardenProjContext")));
-=======
             //        options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
->>>>>>> b20f333b6c72800774425b52aa1a930039d862e1
 
         }
 

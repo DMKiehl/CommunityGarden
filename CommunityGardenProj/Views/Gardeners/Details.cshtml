@@ -35,22 +35,28 @@
             @Html.DisplayFor(model => model.GardenInterest)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address.AddressId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.IdentityUser)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.IdentityUser.Id)
-        </dd>
-        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Address.StreetAddress)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Address.StreetAddress)
+        </dd>        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address.City)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address.City)
+        </dd>        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address.State)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address.State)
+        </dd>        
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Address.Zip)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Address.Zip)
         </dd>
     </dl>
 </div>
