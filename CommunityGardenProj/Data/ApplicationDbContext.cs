@@ -35,5 +35,7 @@ namespace CommunityGardenProj.Data
 
             );
         }
+
+        public DbSet<CommunityGardenProj.Models.Garden> Garden { get; set; }
     }
 }

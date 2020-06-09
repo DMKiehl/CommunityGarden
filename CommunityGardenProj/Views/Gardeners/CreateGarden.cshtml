@@ -1,0 +1,88 @@
+﻿@model CommunityGardenProj.Models.Garden
+
+@{
+    ViewData["Title"] = "CreateGarden";
+}
+
+<h1>CreateGarden</h1>
+
+<h4>Garden</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateGarden">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="gardenType" class="control-label"></label>
+                <input asp-for="gardenType" class="form-control" />
+                <span asp-validation-for="gardenType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="streetAddress" class="control-label"></label>
+                <input asp-for="streetAddress" class="form-control" />
+                <span asp-validation-for="streetAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="city" class="control-label"></label>
+                <input asp-for="city" class="form-control" />
+                <span asp-validation-for="city" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="state" class="control-label"></label>
+                <input asp-for="state" class="form-control" />
+                <span asp-validation-for="state" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="zip" class="control-label"></label>
+                <input asp-for="zip" class="form-control" />
+                <span asp-validation-for="zip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="latitude" class="control-label"></label>
+                <input asp-for="latitude" class="form-control" />
+                <span asp-validation-for="latitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="longitude" class="control-label"></label>
+                <input asp-for="longitude" class="form-control" />
+                <span asp-validation-for="longitude" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="volunteerOpportunities" /> @Html.DisplayNameFor(model => model.volunteerOpportunities)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="organic" /> @Html.DisplayNameFor(model => model.organic)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="cost" class="control-label"></label>
+                <input asp-for="cost" class="form-control" />
+                <span asp-validation-for="cost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="plotSize" class="control-label"></label>
+                <input asp-for="plotSize" class="form-control" />
+                <span asp-validation-for="plotSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
