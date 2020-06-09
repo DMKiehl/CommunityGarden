@@ -26,8 +26,8 @@ namespace CommunityGardenProj.Services
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
-                GeoCode geocode = JsonConvert.DeserializeObject<GeoCode>(json);
-                return geocode;
+                return JsonConvert.DeserializeObject<GeoCode>(json);
+                
             }
 
             return null;

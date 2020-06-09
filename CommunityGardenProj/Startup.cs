@@ -12,11 +12,11 @@ using CommunityGardenProj.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Services;
+using System.Security.Claims;
 
 namespace CommunityGardenProj
 {
@@ -39,7 +39,8 @@ namespace CommunityGardenProj
             services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI().AddDefaultTokenProviders();
 
-            services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User); services.AddControllers(config => { config.Filters.Add(typeof(GlobalRouting)); });
+            services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User); 
+            services.AddControllers(config => { config.Filters.Add(typeof(GlobalRouting)); });
 
 
             services.AddControllersWithViews();
@@ -49,7 +50,11 @@ namespace CommunityGardenProj
             services.AddScoped<IAPIService, APICalls>();
 
             //services.AddDbContext<ApplicationDbContext>(options =>
+<<<<<<< HEAD
             //        options.UseSqlServer(Configuration.GetConnectionString("CommunityGardenProjContext")));
+=======
+            //        options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContext")));
+>>>>>>> b20f333b6c72800774425b52aa1a930039d862e1
 
         }
 
