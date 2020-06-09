@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using CommunityGardenProj.Data;
 using CommunityGardenProj.Models;
@@ -9,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CommunityGardenProj.Controllers
 {
@@ -26,6 +29,43 @@ namespace CommunityGardenProj.Controllers
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             return View(gardener);
         }
+
+
+   
+
+
+
+
+
+            //IEnumerable<GardenViewModel> gardens = null;
+
+            //using (var client = new HttpClient())
+            //{
+            //    client.BaseAddress = new Uri("); //Get the actual local host here
+            //    //HTTP GET
+            //    var resonseTask = client.GetAsync("garden");
+            //    responseTask.Wait();
+
+            //    var result = resonseTask.Result;
+            //    if (result.IsSuccessStatusCode)
+            //    {
+            //        var readTask = result.Content.ReadAsStringAsync<IList<GardenViewModel>>();
+            //        readTask.Wait();
+
+            //        gardens = readTask.Result;
+            //    }
+            //    else //web api sent error response
+            //    {
+            //        //log response status here..
+            //        gardens = Enumerable.Empty<GardenViewModel>();
+
+            //        ModelState.AddModelError(string.Empty, "Server error!");
+            //    }
+            //}
+            //return View(gardens);
+
+        
+
 
         // GET: GardenersController/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -55,7 +95,7 @@ namespace CommunityGardenProj.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("GardenerId,FirstName,LastName,Email,GardenInterest,AddressId")] GardenerViewModel gardenerViewModel)
-        {              
+        {
             Gardener gardener = new Gardener();
             Address address = new Address();
 
@@ -147,5 +187,9 @@ namespace CommunityGardenProj.Controllers
         {
             return _context.Gardeners.Any(e => e.GardenerId == id);
         }
+
+
     }
+   
 }
+
