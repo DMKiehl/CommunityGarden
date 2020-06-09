@@ -27,6 +27,13 @@ namespace GardenAPI.Controllers
             return Ok(gardens);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            var garden = _repoWrapper.Garden.GetByID(id);
+            return Ok(garden);
+        }
+
 
 
         [HttpPost]
@@ -43,6 +50,15 @@ namespace GardenAPI.Controllers
         {
             
             _repoWrapper.Garden.EditGarden(garden);
+            _repoWrapper.Save();
+            return Ok();
+        }
+
+        [HttpDelete]
+
+        public IActionResult Delete([FromBody] Garden garden)
+        {
+            _repoWrapper.Garden.DeleteGarden(garden);
             _repoWrapper.Save();
             return Ok();
         }

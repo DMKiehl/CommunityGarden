@@ -29,5 +29,17 @@ namespace Repository.Data
         {
             Update(garden);
         }
+
+        public void DeleteGarden(Garden garden)
+        {
+            Delete(garden);
+        }
+
+        public IEnumerable<Garden> GetByID(int id)
+        {
+            var thisGarden = FindByCondition(g => g.GardenId == id);
+            return (thisGarden);
+
+        }
     }
 }
