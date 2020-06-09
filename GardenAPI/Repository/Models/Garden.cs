@@ -28,6 +28,8 @@ namespace Repository.Models
 
         public bool VolunteerOpportunities { get; set; }
 
+        public bool Organic { get; set; }
+
         public double Cost { get; set; }
 
         public string PlotSize { get; set; }
