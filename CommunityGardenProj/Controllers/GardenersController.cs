@@ -52,15 +52,13 @@ namespace CommunityGardenProj.Controllers
         }
 
         // GET: GardenersController/Create
-        
+      
         public ActionResult Create()
         {
            
             
                 return View();
-            
         }
-
 
         // POST: GardenersController/Create
         [HttpPost]
