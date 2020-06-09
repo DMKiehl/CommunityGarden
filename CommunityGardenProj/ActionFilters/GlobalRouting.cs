@@ -24,7 +24,7 @@ namespace CommunityGardenProj.ActionFilters
             {
                 if (_claimsPrincipal.IsInRole("Gardener"))
                 {
-                    context.Result = new RedirectToActionResult("Index", "Gardener", null);
+                    context.Result = new RedirectToActionResult("Index", "Gardeners", null);
                 }
                 else if (_claimsPrincipal.IsInRole("Admin"))
                 {
