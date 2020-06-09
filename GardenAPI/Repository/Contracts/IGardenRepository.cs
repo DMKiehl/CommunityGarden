@@ -7,5 +7,6 @@ namespace Repository.Contracts
 {
     public interface IGardenRepository : IRepositoryBase<Garden>
     {
+        IEnumerable<Garden> GetAllGardens();
     }
 }

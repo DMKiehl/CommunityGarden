@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Repository.Contracts;
 using Repository.Data;
+using Repository.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,5 +37,7 @@ namespace Repository
         {
             ApplicationDbContext.Set<T>().Remove(entity);
         }
+
+      
     }
 }

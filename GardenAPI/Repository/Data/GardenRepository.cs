@@ -11,6 +11,14 @@ namespace Repository.Data
         public GardenRepository(ApplicationDbContext applicationDbContext) : base(applicationDbContext)
         {
 
+
         }
+
+        public IEnumerable<Garden> GetAllGardens()
+        {
+            var gardens = FindAll();
+            return gardens;
+        }
+
     }
 }
