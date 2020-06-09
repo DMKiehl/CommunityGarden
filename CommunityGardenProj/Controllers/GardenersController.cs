@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using CommunityGardenProj.ActionFilters;
+using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Data;
 using CommunityGardenProj.Models;
+using CommunityGardenProj.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,12 +15,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CommunityGardenProj.Controllers
 {
+    
     public class GardenersController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public GardenersController(ApplicationDbContext context)
+        private IAPIService _apiCalls;
+        public GardenersController(ApplicationDbContext context, IAPIService apiCalls)
         {
             _context = context;
+            _apiCalls = apiCalls;
         }
         // GET: GardenersController
         public async Task<IActionResult> Index()
@@ -46,38 +52,43 @@ namespace CommunityGardenProj.Controllers
         }
 
         // GET: GardenersController/Create
-        public ActionResult Create(IFormCollection collection)
+        
+        public ActionResult Create()
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
+           
+            
                 return View();
-            }
+            
         }
 
 
         // POST: GardenersController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GardenerId,FirstName,LastName,Email,GardenInterest,AddressId")] GardenerViewModel gardenerViewModel)
+    
+        public async Task<IActionResult> Create(GardenerViewModel gardenerViewModel)
         {              
-            Gardener gardener = new Gardener();
-            Address address = new Address();
+           
 
             if (ModelState.IsValid)
             {
+
+                var fullAddress = gardenerViewModel.Address.StreetAddress + ", " + gardenerViewModel.Address.City + ", " + gardenerViewModel.Address.State;
+                GeoCode geocode = await _apiCalls.GoogleGeocoding(fullAddress);
+                var lat = geocode.results[0].geometry.location.lat;
+                var lng = geocode.results[0].geometry.location.lng;
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                gardener.IdentityUserId = userId;
-                _context.Add(gardener);
-                _context.Add(address);
+                gardenerViewModel.Gardener.IdentityUserId = userId;
+                gardenerViewModel.Address.Latitude = lat;
+                gardenerViewModel.Address.Longitude = lng;
+                gardenerViewModel.Gardener.Address = gardenerViewModel.Address;
+                _context.Add(gardenerViewModel.Gardener);
+             
+                
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", gardener.IdentityUserId);
-            return View(gardener);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", gardenerViewModel.Gardener.IdentityUserId);
+            return View(gardenerViewModel);
         }
         // GET: GardenersController/Edit/5
         public async Task<IActionResult> Edit(int? id)
