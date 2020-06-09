@@ -37,6 +37,9 @@ namespace CommunityGardenProj.Controllers
         }
 
 
+
+
+
    
 
 
@@ -102,18 +105,10 @@ namespace CommunityGardenProj.Controllers
 
         // POST: GardenersController/Create
         [HttpPost]
-<<<<<<< HEAD
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GardenerId,FirstName,LastName,Email,GardenInterest,AddressId")] GardenerViewModel gardenerViewModel)
-        {
-            Gardener gardener = new Gardener();
-            Address address = new Address();
-=======
-    
+
         public async Task<IActionResult> Create(GardenerViewModel gardenerViewModel)
         {              
            
->>>>>>> 0720b27843dde261e8c52d8c0e18af618e6b95e8
 
             if (ModelState.IsValid)
             {
