@@ -27,10 +27,13 @@ namespace GardenAPI.Controllers
             return Ok(gardens);
         }
 
+
+
         [HttpPost]
         public IActionResult Post([FromBody]Garden value)
         {
             _repoWrapper.Garden.CreateGarden(value);
+            _repoWrapper.Save();
             return Ok();
         }
 
@@ -40,6 +43,7 @@ namespace GardenAPI.Controllers
         {
             
             _repoWrapper.Garden.EditGarden(garden);
+            _repoWrapper.Save();
             return Ok();
         }
 
