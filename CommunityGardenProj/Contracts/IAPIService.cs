@@ -14,7 +14,7 @@ namespace CommunityGardenProj.Contracts
 
         //Task<Maps> GoogleMaps();
 
-        //Task<Garden> GardenAPI();
+        //Task<Garden> CreateGardenAPI();
 
     }
 }

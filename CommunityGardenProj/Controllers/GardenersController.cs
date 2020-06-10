@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading.Tasks;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
 
 namespace CommunityGardenProj.Controllers
 {
@@ -208,6 +210,44 @@ namespace CommunityGardenProj.Controllers
             return _context.Gardeners.Any(e => e.GardenerId == id);
         }
 
+
+       public ActionResult CreateGarden()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("CreateGarden")]
+
+        public async Task<IActionResult> CreateGarden(Garden garden)
+        {
+            var address = garden.streetAddress + ", " + garden.city + ", " + garden.state;
+            GeoCode geocode = await _apiCalls.GoogleGeocoding(address);
+            var lat = geocode.results[0].geometry.location.lat;
+            var lng = geocode.results[0].geometry.location.lng;
+            garden.latitude = lat;
+            garden.longitude = lng;
+
+            using var client = new HttpClient();
+            var url = "https://localhost:44329/api/Garden";
+            var json = JsonConvert.SerializeObject(garden);
+            var data = new StringContent(json, Encoding.UTF8, "applicaton/json");
+
+           
+
+            var response = await client.PostAsync(url, data);
+           
+
+
+            //string result = response.Content.ReadAsStringAsync().Result;
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("CreateGarden");
+
+        }
 
     }
    
