@@ -185,6 +185,11 @@ namespace CommunityGardenProj.Controllers
             return View(gardener);
         }
 
+        //public async Task<IActionResult> GardenFilter()
+        //{
+        //    return View();
+        //}
+
         // GET: GardenersController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -230,15 +235,12 @@ namespace CommunityGardenProj.Controllers
             using var client = new HttpClient();
             var url = "https://localhost:44329/api/Garden";
             var json = JsonConvert.SerializeObject(garden);
-            var data = new StringContent(json, Encoding.UTF8, "applicaton/json");
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
 
            
 
             var response = await client.PostAsync(url, data);
            
-
-
-            //string result = response.Content.ReadAsStringAsync().Result;
             
             if (response.IsSuccessStatusCode)
             {
@@ -246,6 +248,13 @@ namespace CommunityGardenProj.Controllers
             }
 
             return RedirectToAction("CreateGarden");
+
+        }
+
+        public async Task<IActionResult> GardenDetails(int id)
+        {
+            Garden garden = await _apiCalls.GardenDetailsAPI(id);
+            return View(garden);
 
         }
 

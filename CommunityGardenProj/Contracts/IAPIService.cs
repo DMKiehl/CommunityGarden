@@ -12,9 +12,9 @@ namespace CommunityGardenProj.Contracts
 
         Task<GeoCode> GoogleGeocoding(string address);
 
-        //Task<Maps> GoogleMaps();
 
-        //Task<Garden> CreateGardenAPI();
+
+        Task<Garden> GardenDetailAPI(int id);
 
     }
 }

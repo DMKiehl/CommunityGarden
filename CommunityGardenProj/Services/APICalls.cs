@@ -37,15 +37,20 @@ namespace CommunityGardenProj.Services
 
         }
 
-        //public async Task<APICalls> GoogleMaps()
-        //{
 
-        //}
+        public async Task<Garden> GardenDetailAPI(int id)
+        {
+            var url = "https://localhost:44329/api/Garden/" + id;
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Garden>(json);
+            }
+            return null;
 
-        //public async Task<IActionResult> CreateGardenAPI(Garden garden)
-        //{
-            
-        //}
+        }
 
     }
 }
