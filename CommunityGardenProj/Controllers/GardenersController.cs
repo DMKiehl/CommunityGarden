@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Threading.Tasks;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
@@ -189,6 +190,17 @@ namespace CommunityGardenProj.Controllers
             return View(gardener);
         }
 
+        public async Task<IActionResult> ListGardensByInterest(int id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+
+            var gardens = await GetAllGardens();
+            var gardeningInterest = gardens.Where(g => g.gardenType == gardener.GardenInterest).ToList();
+            var locationGarden = gardeningInterest.Where(l => l.state == gardener.Address.State).ToList();
+            return View(locationGarden);
+        }
+
         // GET: GardenersController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -216,7 +228,7 @@ namespace CommunityGardenProj.Controllers
 
        
 
-       public ActionResult CreateGarden()
+        public ActionResult CreateGarden()
         {
             return View();
         }
