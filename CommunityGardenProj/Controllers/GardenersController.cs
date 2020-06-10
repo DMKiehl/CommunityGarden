@@ -257,8 +257,8 @@ namespace CommunityGardenProj.Controllers
             var gardner = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
 
             var nearbyGardens = await GetAllGardens();
-            var gardnerAddress = gardner.Address.City;
-            var matchedGarden = nearbyGardens.Find(a => a.city == gardnerAddress);
+            var gardnerAddress = gardner.Address.City.ToString();
+            var matchedGarden = nearbyGardens.Find(a => a.city == gardner.Address.City);
 
             return View(matchedGarden);
         }
