@@ -1,5 +1,23 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model CommunityGardenProj.Models.Gardener
+
 @{
+    ViewData["Title"] = "Index";
 }
+
+<h1>Welcome @Html.DisplayFor(model => model.FirstName)!</h1>
+
+<p>
+    <a asp-action="Details" asp-route-id="@Model.GardenerId">Profile</a> |
+    <a asp-action="AllGardens">View All Gardens</a> |
+    <a asp-action="GardensNearMe" asp-route-id="@Model.GardenerId">Gardens Near Me</a> |
+    <a asp-action="ListGardensByInterest" asp-route-id="@Model.GardenerId">My Interest</a> |
+    <a asp-action="CreateGarden">Add a Garden</a> |
+    <a asp-action="Forum">Forum</a> |
+    <a asp-action="Resources">Resources</a>
+
+</p>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.GardenerId">Edit</a> |
+    
+</div>

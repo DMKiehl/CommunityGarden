@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Data;
+using CommunityGardenProj.Data.Migrations;
 using CommunityGardenProj.Models;
 using CommunityGardenProj.Services;
 using Microsoft.AspNetCore.Http;
@@ -33,9 +34,16 @@ namespace CommunityGardenProj.Controllers
         // GET: GardenersController
         public async Task<IActionResult> Index()
         {
-            GetAllGardens();
+     
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var gardenerProfile = _context.Gardeners.Where(g => g.IdentityUserId == userId).ToList();
+
+            if (gardenerProfile.Count == 0)
+            {
+                return RedirectToAction("Create", "Gardeners");
+            }
+
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             return View(gardener);
         }
@@ -58,9 +66,21 @@ namespace CommunityGardenProj.Controllers
                 allGardens = JsonConvert.DeserializeObject<List<Garden>>(json);
                 
             }
-            
+          
+            return allGardens;
 
-            return allGardens;      
+        }
+
+        public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
+        {
+            var gardens = GetAllGardens();
+
+            //var searchByLocation = gardens.Result.Where(g => g.zip ==)
+            //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
+            //var hasVolunteerOpportunities = gardens.Result.Where(g => g.volunteerOpportunities == true).ToDictionary;
+            //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
+            //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
+
         }
 
         // GET: GardenersController/Details/5
@@ -206,6 +226,7 @@ namespace CommunityGardenProj.Controllers
             return _context.Gardeners.Any(e => e.GardenerId == id);
         }
 
+       
 
         public ActionResult CreateGarden()
         {
@@ -249,7 +270,19 @@ namespace CommunityGardenProj.Controllers
 
         }
 
+
+        public async Task<IActionResult> GardensNearMe(int id) {
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var gardner = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+
+            var nearbyGardens = await GetAllGardens();
+            var gardnerAddress = gardner.Address.City;
+            var matchedGarden = nearbyGardens.Find(a => a.city == gardnerAddress);
+
+            return View(matchedGarden);
+        }
     }
-   
+
 }
 
