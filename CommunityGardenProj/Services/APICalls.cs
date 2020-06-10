@@ -27,7 +27,7 @@ namespace CommunityGardenProj.Services
             {
                 string json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<GeoCode>(json);
-                
+
             }
 
             return null;
@@ -37,12 +37,12 @@ namespace CommunityGardenProj.Services
 
         //public async Task<APICalls> GoogleMaps()
         //{
-           
+
         //}
 
         //public async Task<APICalls> GardenAPI()
         //{
-           
+
         //}
 
     }
