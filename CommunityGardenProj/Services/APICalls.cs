@@ -29,13 +29,14 @@ namespace CommunityGardenProj.Services
             {
                 string json = await response.Content.ReadAsStringAsync();
                 return JsonConvert.DeserializeObject<GeoCode>(json);
-                
+
             }
 
             return null;
 
 
         }
+
 
 
         public async Task<Garden> GardenDetailAPI(int id)
@@ -51,6 +52,7 @@ namespace CommunityGardenProj.Services
             return null;
 
         }
+
 
     }
 }

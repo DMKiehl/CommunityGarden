@@ -33,50 +33,35 @@ namespace CommunityGardenProj.Controllers
         // GET: GardenersController
         public async Task<IActionResult> Index()
         {
+            GetAllGardens();
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             return View(gardener);
         }
 
 
+        public async Task<List<Garden>> GetAllGardens()//use a loop to manage multiple objects
+        {
+            List<Garden> allGardens = new List<Garden>();
 
+            string url = "https://localhost:44329/api/Garden";
 
+            // use HttpClient to make the API call
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
 
-   
+            
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                allGardens = JsonConvert.DeserializeObject<List<Garden>>(json);
+                
+            }
+            
 
-
-
-
-
-            //IEnumerable<GardenViewModel> gardens = null;
-
-            //using (var client = new HttpClient())
-            //{
-            //    client.BaseAddress = new Uri("); //Get the actual local host here
-            //    //HTTP GET
-            //    var resonseTask = client.GetAsync("garden");
-            //    responseTask.Wait();
-
-            //    var result = resonseTask.Result;
-            //    if (result.IsSuccessStatusCode)
-            //    {
-            //        var readTask = result.Content.ReadAsStringAsync<IList<GardenViewModel>>();
-            //        readTask.Wait();
-
-            //        gardens = readTask.Result;
-            //    }
-            //    else //web api sent error response
-            //    {
-            //        //log response status here..
-            //        gardens = Enumerable.Empty<GardenViewModel>();
-
-            //        ModelState.AddModelError(string.Empty, "Server error!");
-            //    }
-            //}
-            //return View(gardens);
-
-        
-
+            return allGardens;      
+        }
 
         // GET: GardenersController/Details/5
         public async Task<IActionResult> Details(int? id)
