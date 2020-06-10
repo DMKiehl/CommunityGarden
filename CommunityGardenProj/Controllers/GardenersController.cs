@@ -243,7 +243,18 @@ namespace CommunityGardenProj.Controllers
 
         }
 
+        public async Task<IActionResult> GardensNearMe(int id) {
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var gardner = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+
+            var nearbyGardens = await GetAllGardens();
+            var gardnerAddress = gardner.Address.City;
+            var matchedGarden = nearbyGardens.Find(a => a.city == gardnerAddress);
+
+            return View(matchedGarden);
+        }
     }
-   
+
 }
 
