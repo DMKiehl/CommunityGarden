@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Data;
+using CommunityGardenProj.Data.Migrations;
 using CommunityGardenProj.Models;
 using CommunityGardenProj.Services;
 using Microsoft.AspNetCore.Http;
@@ -32,9 +33,16 @@ namespace CommunityGardenProj.Controllers
         // GET: GardenersController
         public async Task<IActionResult> Index()
         {
-            GetAllGardens();
+     
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var gardenerProfile = _context.Gardeners.Where(g => g.IdentityUserId == userId).ToList();
+
+            if (gardenerProfile.Count == 0)
+            {
+                return RedirectToAction("Create", "Gardeners");
+            }
+
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             return View(gardener);
         }
@@ -206,8 +214,64 @@ namespace CommunityGardenProj.Controllers
             return _context.Gardeners.Any(e => e.GardenerId == id);
         }
 
+<<<<<<< HEAD
        
+=======
 
+       public ActionResult CreateGarden()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("CreateGarden")]
+
+        public async Task<IActionResult> CreateGarden(Garden garden)
+        {
+            var address = garden.streetAddress + ", " + garden.city + ", " + garden.state;
+            GeoCode geocode = await _apiCalls.GoogleGeocoding(address);
+            var lat = geocode.results[0].geometry.location.lat;
+            var lng = geocode.results[0].geometry.location.lng;
+            garden.latitude = lat;
+            garden.longitude = lng;
+
+            using var client = new HttpClient();
+            var url = "https://localhost:44329/api/Garden";
+            var json = JsonConvert.SerializeObject(garden);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+           
+
+            var response = await client.PostAsync(url, data);
+           
+            
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return RedirectToAction("CreateGarden");
+
+        }
+
+        public async Task<IActionResult> GardenDetails(int id)
+        {
+            Garden garden = await _apiCalls.GardenDetailAPI(id);
+            return View(garden);
+
+        }
+>>>>>>> 495a6cbc9db8f2b57df9f60d6b40a6ce075c9d3c
+
+        public async Task<IActionResult> GardensNearMe(int id) {
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var gardner = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+
+            var nearbyGardens = await GetAllGardens();
+            var gardnerAddress = gardner.Address.City;
+            var matchedGarden = nearbyGardens.Find(a => a.city == gardnerAddress);
+
+            return View(matchedGarden);
+        }
     }
 
 }

@@ -1,0 +1,102 @@
+﻿@model IEnumerable<CommunityGardenProj.Models.Garden>
+
+@{
+    ViewData["Title"] = "AllGardens";
+}
+
+<h1>All Gardens</h1>
+
+<p>
+    <a asp-action="CreateGarden">Create New Garden</a> |
+    <a asp-action="SearchByCriteria">Search Gardens</a> 
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.gardenType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.streetAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.city)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.state)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.zip)
+            </th>
+            @*<th>
+                @Html.DisplayNameFor(model => model.latitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.longitude)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.volunteerOpportunities)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.organic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cost)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.plotSize)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gardenType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.streetAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.city)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.state)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.zip)
+            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.longitude)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.volunteerOpportunities)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.organic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.plotSize)
+            </td>
+            <td>
+                @*<a asp-action="Edit" asp-route-id="@item.gardenId">Edit</a> |*@
+                <a asp-action="Details" asp-route-id="@item.gardenId">Details</a> 
+                
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
