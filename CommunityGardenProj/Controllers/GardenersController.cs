@@ -71,9 +71,9 @@ namespace CommunityGardenProj.Controllers
 
         }
 
-        //public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
-        //{
-        //    var gardens = GetAllGardens();
+        public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
+        {
+            var gardens = GetAllGardens();
 
             //var searchByLocation = gardens.Result.Where(g => g.zip ==)
             //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
@@ -81,7 +81,7 @@ namespace CommunityGardenProj.Controllers
             //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
             //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
 
-        //}
+        }
 
         // GET: GardenersController/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -92,13 +92,17 @@ namespace CommunityGardenProj.Controllers
             }
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var address = _context.Address.Where(a => a.AddressId == gardener.AddressId).SingleOrDefault();
 
+            GardenerViewModel gardenerViewModel = new GardenerViewModel();
+            gardenerViewModel.Gardener = gardener;
+            gardenerViewModel.Address = address;
             if (gardener == null)
             {
                 return NotFound();
             }
 
-            return View(gardener);
+            return View(gardenerViewModel);
         }
 
         // GET: GardenersController/Create
@@ -129,19 +133,9 @@ namespace CommunityGardenProj.Controllers
                 gardenerViewModel.Gardener.IdentityUserId = userId;
                 gardenerViewModel.Address.Latitude = lat;
                 gardenerViewModel.Address.Longitude = lng;
-                //gardenerViewModel.Gardener.Address = gardenerViewModel.Address;
 
-                //newGardener.Address.StreetAddress = gardenerViewModel.Address.StreetAddress;
-                //newGardener.Address.City = gardenerViewModel.Address.City;
-                //newGardener.Address.State = gardenerViewModel.Address.City;
-                //newGardener.Address.Zip = gardenerViewModel.Address.Zip;
-                //_context.SaveChanges();
-                
-              
-                //newAddress.StreetAddress = gardenerViewModel.Address.StreetAddress;
-                //newAddress.City = gardenerViewModel.Address.StreetAddress;
-                //newAddress.Zip = gardenerViewModel.Address.Zip;
-
+                gardenerViewModel.Gardener.Address = gardenerViewModel.Address;
+                _context.Add(gardenerViewModel.Address);
 
                 _context.Add(gardenerViewModel.Gardener);
              
@@ -269,8 +263,40 @@ namespace CommunityGardenProj.Controllers
         public async Task<IActionResult> GardenDetails(int id)
         {
             Garden garden = await _apiCalls.GardenDetailAPI(id);
+            
+
             return View(garden);
 
+        }
+
+
+        public ActionResult EditAddress(int id)
+        {
+            var address = _context.Address.Where(a => a.AddressId == id).SingleOrDefault();
+            return View(address);
+        }
+
+        [HttpPost, ActionName("EditAddress")]
+        public async Task<IActionResult> EditAddress(Address address)
+        {
+            var newAddress = _context.Address.Where(a => a.AddressId == address.AddressId).SingleOrDefault();
+            newAddress.StreetAddress = address.StreetAddress;
+            newAddress.City = address.City;
+            newAddress.State = address.State;
+            newAddress.Zip = address.Zip;
+
+            var geoAddress = address.StreetAddress + ", " + address.City + ", " + address.State;
+            GeoCode geocode = await _apiCalls.GoogleGeocoding(geoAddress);
+            var lat = geocode.results[0].geometry.location.lat;
+            var lng = geocode.results[0].geometry.location.lng;
+
+            newAddress.Latitude = lat;
+            newAddress.Longitude = lng;
+
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Index");
         }
 
 
@@ -285,6 +311,17 @@ namespace CommunityGardenProj.Controllers
 
             return View(matchedGarden);
         }
+
+
+        public async Task<IActionResult> AllGardens()
+        {
+            var gardens = await GetAllGardens();
+          
+
+            return View(gardens);
+
+        }
+
     }
 
 }

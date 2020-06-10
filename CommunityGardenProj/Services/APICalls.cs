@@ -8,6 +8,7 @@ using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace CommunityGardenProj.Services
 {
@@ -28,6 +29,7 @@ namespace CommunityGardenProj.Services
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
+                
                 return JsonConvert.DeserializeObject<GeoCode>(json);
 
             }
@@ -47,7 +49,9 @@ namespace CommunityGardenProj.Services
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
+                var result = JObject.Parse(json).ToString();
                 return JsonConvert.DeserializeObject<Garden>(json);
+
             }
             return null;
 

@@ -35,9 +35,10 @@
                 <input asp-for="Gardener.GardenInterest" class="form-control" />
                 <span asp-validation-for="Gardener.GardenInterest" class="text-danger"></span>
             </div>
-            @*<input type="hidden" asp-for-"Gardener.AddressId" />*@
+            <input type="hidden" asp-for-"Gardener.AddressId" />
             <input type="hidden" asp-for-"Gardener.IdentityUserId" />
-            @*<input type="hidden" asp-for-"Address.AddressId" />*@
+            <input type="hidden" asp-for-"Address.AddressId" />
+
             <div class="form-group">
                 <label asp-for="Address.StreetAddress" class="control-label"></label>
                 <input asp-for="Address.StreetAddress" class="form-control" />
