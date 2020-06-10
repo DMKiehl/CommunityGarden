@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Models;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace CommunityGardenProj.Services
@@ -35,15 +37,22 @@ namespace CommunityGardenProj.Services
 
         }
 
-        //public async Task<APICalls> GoogleMaps()
-        //{
 
-        //}
 
-        //public async Task<APICalls> GardenAPI()
-        //{
+        public async Task<Garden> GardenDetailAPI(int id)
+        {
+            var url = "https://localhost:44329/api/Garden/" + id;
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync(url);
+            if (response.IsSuccessStatusCode)
+            {
+                string json = await response.Content.ReadAsStringAsync();
+                return JsonConvert.DeserializeObject<Garden>(json);
+            }
+            return null;
 
-        //}
+        }
+
 
     }
 }

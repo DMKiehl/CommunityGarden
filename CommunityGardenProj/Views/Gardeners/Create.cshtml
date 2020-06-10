@@ -12,11 +12,9 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Gardener.GardenerId" class="control-label"></label>
-                <input asp-for="Gardener.GardenerId" class="form-control" />
-                <span asp-validation-for="Gardener.GardenerId" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for-"Gardener.GardenerId" />
+
+
             <div class="form-group">
                 <label asp-for="Gardener.FirstName" class="control-label"></label>
                 <input asp-for="Gardener.FirstName" class="form-control" />
@@ -37,26 +35,11 @@
                 <input asp-for="Gardener.GardenInterest" class="form-control" />
                 <span asp-validation-for="Gardener.GardenInterest" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Gardener.AddressId" class="control-label"></label>
-                <input asp-for="Gardener.AddressId" class="form-control" />
-                <span asp-validation-for="Gardener.AddressId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Gardener.IdentityUserId" class="control-label"></label>
-                <input asp-for="Gardener.IdentityUserId" class="form-control" />
-                <span asp-validation-for="Gardener.IdentityUserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address.AddressId" class="control-label"></label>
-                <input asp-for="Address.AddressId" class="form-control" />
-                <span asp-validation-for="Address.AddressId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address.StreetAddress" class="control-label"></label>
-                <input asp-for="Address.StreetAddress" class="form-control" />
-                <span asp-validation-for="Address.StreetAddress" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for-"Gardener.AddressId" />
+            <input type="hidden" asp-for-"Gardener.IdentityUserId" />
+            <input type="hidden" asp-for-"Address.AddressId" />
+            <input type="hidden" asp-for-"Address.StreetAddress" />
+
             <div class="form-group">
                 <label asp-for="Address.City" class="control-label"></label>
                 <input asp-for="Address.City" class="form-control" />
@@ -72,16 +55,10 @@
                 <input asp-for="Address.Zip" class="form-control" />
                 <span asp-validation-for="Address.Zip" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Address.Latitude" class="control-label"></label>
-                <input asp-for="Address.Latitude" class="form-control" />
-                <span asp-validation-for="Address.Latitude" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address.Longitude" class="control-label"></label>
-                <input asp-for="Address.Longitude" class="form-control" />
-                <span asp-validation-for="Address.Longitude" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for-"Address.Latitude" />
+            <input type="hidden" asp-for-"Address.Longitude" />
+
+         
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>

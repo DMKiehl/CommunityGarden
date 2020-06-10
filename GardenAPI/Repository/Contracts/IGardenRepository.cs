@@ -11,5 +11,9 @@ namespace Repository.Contracts
         void CreateGarden(Garden garden);
 
         void EditGarden(Garden garden);
+
+        void DeleteGarden(Garden garden);
+
+        IEnumerable<Garden> GetByID(int id);
     }
 }
