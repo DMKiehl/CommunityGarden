@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-//using AspNetCore;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Data;
@@ -19,8 +18,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Schema;
-
 
 namespace CommunityGardenProj.Controllers
 {
@@ -35,7 +32,7 @@ namespace CommunityGardenProj.Controllers
             _apiCalls = apiCalls;
         }
         // GET: GardenersController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
      
 
@@ -69,13 +66,25 @@ namespace CommunityGardenProj.Controllers
                 allGardens = JsonConvert.DeserializeObject<List<Garden>>(json);
                 
             }
-            
+          
+            return allGardens;
 
-            return allGardens;      
+        }
+
+        public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
+        {
+            var gardens = GetAllGardens();
+
+            //var searchByLocation = gardens.Result.Where(g => g.zip ==)
+            //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
+            //var hasVolunteerOpportunities = gardens.Result.Where(g => g.volunteerOpportunities == true).ToDictionary;
+            //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
+            //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
+
         }
 
         // GET: GardenersController/Details/5
-        public ActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -186,10 +195,16 @@ namespace CommunityGardenProj.Controllers
             return View(gardener);
         }
 
-        //public async Task<IActionResult> GardenFilter()
-        //{
-        //    return View();
-        //}
+        public async Task<IActionResult> ListGardensByInterest(int id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+
+            var gardens = await GetAllGardens();
+            var gardeningInterest = gardens.Where(g => g.gardenType == gardener.GardenInterest).ToList();
+            var locationGarden = gardeningInterest.Where(l => l.state == gardener.Address.State).ToList();
+            return View(locationGarden);
+        }
 
         // GET: GardenersController/Delete/5
         public ActionResult Delete(int id)
@@ -216,8 +231,9 @@ namespace CommunityGardenProj.Controllers
             return _context.Gardeners.Any(e => e.GardenerId == id);
         }
 
+       
 
-       public ActionResult CreateGarden()
+        public ActionResult CreateGarden()
         {
             return View();
         }
@@ -261,6 +277,7 @@ namespace CommunityGardenProj.Controllers
 
         }
 
+
         public ActionResult EditAddress(int id)
         {
             var address = _context.Address.Where(a => a.AddressId == id).SingleOrDefault();
@@ -302,6 +319,7 @@ namespace CommunityGardenProj.Controllers
 
             return View(matchedGarden);
         }
+
 
         public async Task<IActionResult> AllGardens()
         {
