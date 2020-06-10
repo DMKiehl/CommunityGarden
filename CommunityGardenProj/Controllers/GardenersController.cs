@@ -238,7 +238,7 @@ namespace CommunityGardenProj.Controllers
 
         public async Task<IActionResult> GardenDetails(int id)
         {
-            Garden garden = await _apiCalls.GardenDetailsAPI(id);
+            Garden garden = await _apiCalls.GardenDetailAPI(id);
             return View(garden);
 
         }
