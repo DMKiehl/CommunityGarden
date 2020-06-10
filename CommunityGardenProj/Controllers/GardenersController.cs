@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
@@ -66,9 +65,21 @@ namespace CommunityGardenProj.Controllers
                 allGardens = JsonConvert.DeserializeObject<List<Garden>>(json);
                 
             }
-            
+          
+            return allGardens;
 
-            return allGardens;      
+        }
+
+        public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
+        {
+            var gardens = GetAllGardens();
+
+            //var searchByLocation = gardens.Result.Where(g => g.zip ==)
+            //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
+            //var hasVolunteerOpportunities = gardens.Result.Where(g => g.volunteerOpportunities == true).ToDictionary;
+            //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
+            //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
+
         }
 
         // GET: GardenersController/Details/5
@@ -178,11 +189,6 @@ namespace CommunityGardenProj.Controllers
             return View(gardener);
         }
 
-        //public async Task<IActionResult> GardenFilter()
-        //{
-        //    return View();
-        //}
-
         // GET: GardenersController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -208,6 +214,7 @@ namespace CommunityGardenProj.Controllers
             return _context.Gardeners.Any(e => e.GardenerId == id);
         }
 
+       
 
        public ActionResult CreateGarden()
         {
@@ -250,6 +257,7 @@ namespace CommunityGardenProj.Controllers
             return View(garden);
 
         }
+
 
         public async Task<IActionResult> GardensNearMe(int id) {
 
