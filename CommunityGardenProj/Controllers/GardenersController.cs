@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
-//using AspNetCore;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Data;
@@ -18,8 +17,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Schema;
-
 
 namespace CommunityGardenProj.Controllers
 {
@@ -34,7 +31,7 @@ namespace CommunityGardenProj.Controllers
             _apiCalls = apiCalls;
         }
         // GET: GardenersController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
      
 
@@ -73,20 +70,20 @@ namespace CommunityGardenProj.Controllers
 
         }
 
-        //public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
-        //{
-        //    var gardens = GetAllGardens();
+        public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
+        {
+            var gardens = GetAllGardens();
 
-        //    //var searchByLocation = gardens.Result.Where(g => g.zip ==)
-        //    //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
-        //    //var hasVolunteerOpportunities = gardens.Result.Where(g => g.volunteerOpportunities == true).ToDictionary;
-        //    //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
-        //    //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
+            //var searchByLocation = gardens.Result.Where(g => g.zip ==)
+            //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
+            //var hasVolunteerOpportunities = gardens.Result.Where(g => g.volunteerOpportunities == true).ToDictionary;
+            //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
+            //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
 
-        //}
+        }
 
         // GET: GardenersController/Details/5
-        public ActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
@@ -217,9 +214,7 @@ namespace CommunityGardenProj.Controllers
             return _context.Gardeners.Any(e => e.GardenerId == id);
         }
 
-<<<<<<< HEAD
        
-=======
 
        public ActionResult CreateGarden()
         {
@@ -262,36 +257,6 @@ namespace CommunityGardenProj.Controllers
             return View(garden);
 
         }
->>>>>>> 495a6cbc9db8f2b57df9f60d6b40a6ce075c9d3c
-
-        public ActionResult EditAddress(int id)
-        {
-            var address = _context.Address.Where(a => a.AddressId == id);
-            return View();
-        }
-
-        [HttpPost, ActionName("EditAddress")]
-        public async Task<IActionResult> EditAddress(Address address)
-        {
-            var newAddress = _context.Address.Where(a => a.AddressId == address.AddressId).SingleOrDefault();
-            newAddress.StreetAddress = address.StreetAddress;
-            newAddress.City = address.City;
-            newAddress.State = address.State;
-            newAddress.Zip = address.Zip;
-
-            var geoAddress = address.StreetAddress + ", " + address.City + ", " + address.State;
-            GeoCode geocode = await _apiCalls.GoogleGeocoding(geoAddress);
-            var lat = geocode.results[0].geometry.location.lat;
-            var lng = geocode.results[0].geometry.location.lng;
-
-            newAddress.Latitude = lat;
-            newAddress.Longitude = lng;
-
-            _context.SaveChanges();
-
-
-            return RedirectToAction("Index");
-        }
 
 
         public async Task<IActionResult> GardensNearMe(int id) {
@@ -305,7 +270,6 @@ namespace CommunityGardenProj.Controllers
 
             return View(matchedGarden);
         }
-
     }
 
 }
