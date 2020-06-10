@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+//using AspNetCore;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Data;
@@ -18,6 +19,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Schema;
+
 
 namespace CommunityGardenProj.Controllers
 {
@@ -32,7 +35,7 @@ namespace CommunityGardenProj.Controllers
             _apiCalls = apiCalls;
         }
         // GET: GardenersController
-        public async Task<IActionResult> Index()
+        public ActionResult Index()
         {
      
 
@@ -72,7 +75,7 @@ namespace CommunityGardenProj.Controllers
         }
 
         // GET: GardenersController/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -250,6 +253,37 @@ namespace CommunityGardenProj.Controllers
             return View(garden);
 
         }
+
+        public ActionResult EditAddress(int id)
+        {
+            var address = _context.Address.Where(a => a.AddressId == id);
+            return View();
+        }
+
+        [HttpPost, ActionName("EditAddress")]
+        public async Task<IActionResult> EditAddress(Address address)
+        {
+            var newAddress = _context.Address.Where(a => a.AddressId == address.AddressId).SingleOrDefault();
+            newAddress.StreetAddress = address.StreetAddress;
+            newAddress.City = address.City;
+            newAddress.State = address.State;
+            newAddress.Zip = address.Zip;
+
+            var geoAddress = address.StreetAddress + ", " + address.City + ", " + address.State;
+            GeoCode geocode = await _apiCalls.GoogleGeocoding(geoAddress);
+            var lat = geocode.results[0].geometry.location.lat;
+            var lng = geocode.results[0].geometry.location.lng;
+
+            newAddress.Latitude = lat;
+            newAddress.Longitude = lng;
+
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Index");
+        }
+
+       
 
     }
    
