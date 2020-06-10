@@ -37,5 +37,7 @@ namespace CommunityGardenProj.Data
         }
 
         public DbSet<CommunityGardenProj.Models.Garden> Garden { get; set; }
+
+        public DbSet<CommunityGardenProj.Models.Address> Address { get; set; }
     }
 }
