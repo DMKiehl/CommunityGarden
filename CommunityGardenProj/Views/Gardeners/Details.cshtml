@@ -1,4 +1,4 @@
-﻿@model CommunityGardenProj.Models.Gardener
+﻿@model CommunityGardenProj.Models.GardenerViewModel
 
 @{
     ViewData["Title"] = "Details";
@@ -11,28 +11,28 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.Gardener.FirstName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
+            @Html.DisplayFor(model => model.Gardener.FirstName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.Gardener.LastName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
+            @Html.DisplayFor(model => model.Gardener.LastName)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.Gardener.Email)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => model.Gardener.Email)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GardenInterest)
+            @Html.DisplayNameFor(model => model.Gardener.GardenInterest)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.GardenInterest)
+            @Html.DisplayFor(model => model.Gardener.GardenInterest)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Address.StreetAddress)
@@ -61,7 +61,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.GardenerId">Edit Your Information</a> |
-    <a asp-action="EditAddress" asp-route-id="@Model.AddressId">Edit Your Address</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Gardener.GardenerId">Edit Your Information</a> |
+    <a asp-action="EditAddress" asp-route-id="@Model.Gardener.AddressId">Edit Your Address</a> |
     <a asp-action="Index">Back to List</a>
 </div>

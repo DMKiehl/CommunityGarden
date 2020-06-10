@@ -83,13 +83,17 @@ namespace CommunityGardenProj.Controllers
             }
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var address = _context.Address.Where(a => a.AddressId == gardener.AddressId).SingleOrDefault();
 
+            GardenerViewModel gardenerViewModel = new GardenerViewModel();
+            gardenerViewModel.Gardener = gardener;
+            gardenerViewModel.Address = address;
             if (gardener == null)
             {
                 return NotFound();
             }
 
-            return View(gardener);
+            return View(gardenerViewModel);
         }
 
         // GET: GardenersController/Create
@@ -120,6 +124,7 @@ namespace CommunityGardenProj.Controllers
                 gardenerViewModel.Address.Latitude = lat;
                 gardenerViewModel.Address.Longitude = lng;
                 gardenerViewModel.Gardener.Address = gardenerViewModel.Address;
+                _context.Add(gardenerViewModel.Address);
                 _context.Add(gardenerViewModel.Gardener);
              
                 
@@ -250,14 +255,16 @@ namespace CommunityGardenProj.Controllers
         public async Task<IActionResult> GardenDetails(int id)
         {
             Garden garden = await _apiCalls.GardenDetailAPI(id);
+            
+
             return View(garden);
 
         }
 
         public ActionResult EditAddress(int id)
         {
-            var address = _context.Address.Where(a => a.AddressId == id);
-            return View();
+            var address = _context.Address.Where(a => a.AddressId == id).SingleOrDefault();
+            return View(address);
         }
 
         [HttpPost, ActionName("EditAddress")]
@@ -294,6 +301,15 @@ namespace CommunityGardenProj.Controllers
             var matchedGarden = nearbyGardens.Find(a => a.city == gardnerAddress);
 
             return View(matchedGarden);
+        }
+
+        public async Task<IActionResult> AllGardens()
+        {
+            var gardens = await GetAllGardens();
+          
+
+            return View(gardens);
+
         }
 
     }
