@@ -83,6 +83,7 @@ namespace CommunityGardenProj.Controllers
 
         }
 
+
         // GET: GardenersController/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -118,8 +119,9 @@ namespace CommunityGardenProj.Controllers
         [HttpPost]
 
         public async Task<IActionResult> Create(GardenerViewModel gardenerViewModel)
-        {              
-           
+        {
+            Gardener gardener = new Gardener();
+            Address address = new Address();
 
             if (ModelState.IsValid)
             {
@@ -129,14 +131,30 @@ namespace CommunityGardenProj.Controllers
                 var lat = geocode.results[0].geometry.location.lat;
                 var lng = geocode.results[0].geometry.location.lng;
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                gardener.FirstName = gardenerViewModel.Gardener.FirstName;
+                gardener.LastName = gardenerViewModel.Gardener.LastName;
+                gardener.GardenInterest = gardenerViewModel.Gardener.GardenInterest;
+                gardener.Email = gardenerViewModel.Gardener.Email;
                 gardenerViewModel.Gardener.IdentityUserId = userId;
-                gardenerViewModel.Address.Latitude = lat;
-                gardenerViewModel.Address.Longitude = lng;
-                gardenerViewModel.Gardener.Address = gardenerViewModel.Address;
-                _context.Add(gardenerViewModel.Address);
-                _context.Add(gardenerViewModel.Gardener);
-             
+                gardener.IdentityUserId = gardenerViewModel.Gardener.IdentityUserId;
+                address.StreetAddress = gardenerViewModel.Address.StreetAddress;
+                address.State = gardenerViewModel.Address.State;
+                address.City = gardenerViewModel.Address.City;
+                address.Zip = gardenerViewModel.Address.Zip;
+                _context.Add(address);
+                _context.SaveChanges();
+                gardener.Address = gardenerViewModel.Address;
+                _context.Add(gardener);
+                _context.SaveChanges();
                 
+               
+                //gardenerViewModel.Address.Latitude = lat;
+                //gardenerViewModel.Address.Longitude = lng;
+                //gardenerViewModel.Gardener.Address = gardenerViewModel.Address;
+                //_context.Add(gardenerViewModel.Address);
+                //_context.Add(gardenerViewModel.Gardener);
+
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -199,10 +217,11 @@ namespace CommunityGardenProj.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var address = _context.Address.Where(a => a.AddressId == gardener.AddressId).SingleOrDefault();
 
             var gardens = await GetAllGardens();
             var gardeningInterest = gardens.Where(g => g.gardenType == gardener.GardenInterest).ToList();
-            var locationGarden = gardeningInterest.Where(l => l.state == gardener.Address.State).ToList();
+            var locationGarden = gardeningInterest.Where(l => l.state == address.State).ToList();
             return View(locationGarden);
         }
 

@@ -2,6 +2,7 @@
 using Repository.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Repository.Data
@@ -35,9 +36,9 @@ namespace Repository.Data
             Delete(garden);
         }
 
-        public IEnumerable<Garden> GetByID(int id)
+        public Garden GetByID(int id)
         {
-            var thisGarden = FindByCondition(g => g.GardenId == id);
+            var thisGarden = FindByCondition(g => g.GardenId == id).SingleOrDefault();
             return (thisGarden);
 
         }

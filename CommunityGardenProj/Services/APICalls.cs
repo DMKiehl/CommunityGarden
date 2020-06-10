@@ -50,7 +50,7 @@ namespace CommunityGardenProj.Services
             {
                 string json = await response.Content.ReadAsStringAsync();
                 var result = JObject.Parse(json).ToString();
-                return JsonConvert.DeserializeObject<Garden>(json);
+                return JsonConvert.DeserializeObject<Garden>(result);
 
             }
             return null;
