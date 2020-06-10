@@ -1,7 +1,4 @@
-﻿@model CommunityGardenProj.Models.Garden
-
-
-@*IEnumerable<CommunityGardenProj.Models.Garden>*@
+﻿@model IEnumerable<CommunityGardenProj.Models.Garden>
 
 @{
     ViewData["Title"] = "GardensNearMe";
@@ -108,14 +105,14 @@
                 map = new google.maps.Map(document.getElementById('map'), {
                     center:
                     {
-                        lat: @Model.
-                        lng: @Model.longitude
+                        @*lat: @Model.
+                        lng: @Model.longitude*@
                     },
                     zoom: 15
                 });
 
                 marker = new google.maps.Marker({
-                    position: { lat: @Model.latitude, lng: @Model.longitude},
+                    @*position: { lat: @Model.latitude, lng: @Model.longitude},*@
                     map: map
                 });
                 marker.setMap(map);

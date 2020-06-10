@@ -71,9 +71,9 @@ namespace CommunityGardenProj.Controllers
 
         }
 
-        public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
-        {
-            var gardens = GetAllGardens();
+        //public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
+        //{
+        //    var gardens = GetAllGardens();
 
             //var searchByLocation = gardens.Result.Where(g => g.zip ==)
             //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
@@ -81,7 +81,7 @@ namespace CommunityGardenProj.Controllers
             //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
             //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
 
-        }
+        //}
 
         // GET: GardenersController/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -114,8 +114,9 @@ namespace CommunityGardenProj.Controllers
         [HttpPost]
 
         public async Task<IActionResult> Create(GardenerViewModel gardenerViewModel)
-        {              
-           
+        {
+            //Gardener newGardener = new Gardener();
+            //Address newAddress = new Address();
 
             if (ModelState.IsValid)
             {
@@ -128,7 +129,20 @@ namespace CommunityGardenProj.Controllers
                 gardenerViewModel.Gardener.IdentityUserId = userId;
                 gardenerViewModel.Address.Latitude = lat;
                 gardenerViewModel.Address.Longitude = lng;
-                gardenerViewModel.Gardener.Address = gardenerViewModel.Address;
+                //gardenerViewModel.Gardener.Address = gardenerViewModel.Address;
+
+                //newGardener.Address.StreetAddress = gardenerViewModel.Address.StreetAddress;
+                //newGardener.Address.City = gardenerViewModel.Address.City;
+                //newGardener.Address.State = gardenerViewModel.Address.City;
+                //newGardener.Address.Zip = gardenerViewModel.Address.Zip;
+                //_context.SaveChanges();
+                
+              
+                //newAddress.StreetAddress = gardenerViewModel.Address.StreetAddress;
+                //newAddress.City = gardenerViewModel.Address.StreetAddress;
+                //newAddress.Zip = gardenerViewModel.Address.Zip;
+
+
                 _context.Add(gardenerViewModel.Gardener);
              
                 
@@ -190,17 +204,6 @@ namespace CommunityGardenProj.Controllers
             return View(gardener);
         }
 
-        public async Task<IActionResult> ListGardensByInterest(int id)
-        {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
-
-            var gardens = await GetAllGardens();
-            var gardeningInterest = gardens.Where(g => g.gardenType == gardener.GardenInterest).ToList();
-            var locationGarden = gardeningInterest.Where(l => l.state == gardener.Address.State).ToList();
-            return View(locationGarden);
-        }
-
         // GET: GardenersController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -228,7 +231,7 @@ namespace CommunityGardenProj.Controllers
 
        
 
-        public ActionResult CreateGarden()
+       public ActionResult CreateGarden()
         {
             return View();
         }
@@ -274,11 +277,11 @@ namespace CommunityGardenProj.Controllers
         public async Task<IActionResult> GardensNearMe(int id) {
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var gardner = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
 
             var nearbyGardens = await GetAllGardens();
-            var gardnerAddress = gardner.Address.City.ToString();
-            var matchedGarden = nearbyGardens.Find(a => a.city == gardner.Address.City);
+            var gardenerAddress = gardener.Address.City;
+            var matchedGarden = nearbyGardens.Find(a => a.city == gardenerAddress);
 
             return View(matchedGarden);
         }
