@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
@@ -58,10 +57,22 @@ namespace CommunityGardenProj.Controllers
                 allGardens = JsonConvert.DeserializeObject<List<Garden>>(json);
                 
             }
-            
+          
+            return allGardens;
 
-            return allGardens;      
         }
+
+        //public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
+        //{
+        //    var gardens = GetAllGardens();
+
+        //    //var searchByLocation = gardens.Result.Where(g => g.zip ==)
+        //    //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
+        //    //var hasVolunteerOpportunities = gardens.Result.Where(g => g.volunteerOpportunities == true).ToDictionary;
+        //    //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
+        //    //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
+
+        //}
 
         // GET: GardenersController/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -170,11 +181,6 @@ namespace CommunityGardenProj.Controllers
             return View(gardener);
         }
 
-        //public async Task<IActionResult> GardenFilter()
-        //{
-        //    return View();
-        //}
-
         // GET: GardenersController/Delete/5
         public ActionResult Delete(int id)
         {
@@ -200,50 +206,9 @@ namespace CommunityGardenProj.Controllers
             return _context.Gardeners.Any(e => e.GardenerId == id);
         }
 
-
-       public ActionResult CreateGarden()
-        {
-            return View();
-        }
-
-        [HttpPost, ActionName("CreateGarden")]
-
-        public async Task<IActionResult> CreateGarden(Garden garden)
-        {
-            var address = garden.streetAddress + ", " + garden.city + ", " + garden.state;
-            GeoCode geocode = await _apiCalls.GoogleGeocoding(address);
-            var lat = geocode.results[0].geometry.location.lat;
-            var lng = geocode.results[0].geometry.location.lng;
-            garden.latitude = lat;
-            garden.longitude = lng;
-
-            using var client = new HttpClient();
-            var url = "https://localhost:44329/api/Garden";
-            var json = JsonConvert.SerializeObject(garden);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-           
-
-            var response = await client.PostAsync(url, data);
-           
-            
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-
-            return RedirectToAction("CreateGarden");
-
-        }
-
-        public async Task<IActionResult> GardenDetails(int id)
-        {
-            Garden garden = await _apiCalls.GardenDetailsAPI(id);
-            return View(garden);
-
-        }
+       
 
     }
-   
+
 }
 
