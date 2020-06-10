@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<CommunityGardenProj.Models.Garden>
 
 @{
-    ViewData["Title"] = "AllGardens";
+    ViewData["Title"] = "GardensNearMe";
 }
 
-<h1>All Gardens</h1>
+<h1>GardensNearMe</h1>
 
 <p>
-    <a asp-action="CreateGarden">Create New Garden</a> |
-    <a asp-action="SearchByCriteria">Search Gardens</a> 
+    <a asp-action="Create">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -91,11 +90,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.plotSize)
             </td>
-            <td>
-                @*<a asp-action="Edit" asp-route-id="@item.gardenId">Edit</a> |*@
-                <a asp-action="Details" asp-route-id="@item.gardenId">Details</a> 
-                
-            </td>
+
         </tr>
 }
     </tbody>

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Data;
+using CommunityGardenProj.Data.Migrations;
 using CommunityGardenProj.Models;
 using CommunityGardenProj.Services;
 using Microsoft.AspNetCore.Http;
@@ -33,9 +34,16 @@ namespace CommunityGardenProj.Controllers
         // GET: GardenersController
         public async Task<IActionResult> Index()
         {
-            GetAllGardens();
+     
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var gardenerProfile = _context.Gardeners.Where(g => g.IdentityUserId == userId).ToList();
+
+            if (gardenerProfile.Count == 0)
+            {
+                return RedirectToAction("Create", "Gardeners");
+            }
+
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             return View(gardener);
         }
