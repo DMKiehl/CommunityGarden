@@ -385,8 +385,11 @@ namespace CommunityGardenProj.Controllers
             return View(gardens);
 
         }
-
-       
+        
+        public IActionResult Resources()
+        {
+            return View();
+        }
     }
 
 }
