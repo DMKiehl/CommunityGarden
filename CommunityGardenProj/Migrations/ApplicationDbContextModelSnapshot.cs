@@ -4,22 +4,132 @@ using CommunityGardenProj.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CommunityGardenProj.Data.Migrations
+namespace CommunityGardenProj.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200608164941_intToDouble")]
-    partial class intToDouble
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
+                .HasAnnotation("ProductVersion", "3.1.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CommunityGardenProj.Models.Address", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StreetAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Zip")
+                        .HasColumnType("float");
+
+                    b.HasKey("AddressId");
+
+                    b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("CommunityGardenProj.Models.Garden", b =>
+                {
+                    b.Property<int>("gardenId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("city")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("cost")
+                        .HasColumnType("int");
+
+                    b.Property<string>("gardenType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("latitude")
+                        .HasColumnType("real");
+
+                    b.Property<float>("longitude")
+                        .HasColumnType("real");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("organic")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("plotSize")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("state")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("streetAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("volunteerOpportunities")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("zip")
+                        .HasColumnType("int");
+
+                    b.HasKey("gardenId");
+
+                    b.ToTable("Garden");
+                });
+
+            modelBuilder.Entity("CommunityGardenProj.Models.Gardener", b =>
+                {
+                    b.Property<int>("GardenerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GardenInterest")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("GardenerId");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("IdentityUserId");
+
+                    b.ToTable("Gardeners");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -50,10 +160,17 @@ namespace CommunityGardenProj.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bd0487c3-ff19-48a1-b4be-61f621903eab",
-                            ConcurrencyStamp = "528ca52c-385c-45f0-b25e-662c9c6f0c17",
+                            Id = "c534b578-c75c-418f-9d04-7150692e7816",
+                            ConcurrencyStamp = "751bed60-f5f7-48c7-8c2b-fc6a0713b467",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "4392b5a3-ac75-44cf-9731-4c7b1b3ed9b0",
+                            ConcurrencyStamp = "74cc8cc3-c852-4dd1-a203-29262f54cf8b",
+                            Name = "Gardener",
+                            NormalizedName = "GARDENER"
                         });
                 });
 
@@ -224,6 +341,19 @@ namespace CommunityGardenProj.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CommunityGardenProj.Models.Gardener", b =>
+                {
+                    b.HasOne("CommunityGardenProj.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

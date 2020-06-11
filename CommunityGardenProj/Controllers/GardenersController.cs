@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
 using CommunityGardenProj.Data;
-using CommunityGardenProj.Data.Migrations;
+//using CommunityGardenProj.Data.Migrations;
 using CommunityGardenProj.Models;
 using CommunityGardenProj.Services;
 using Microsoft.AspNetCore.Http;
@@ -17,11 +18,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.VisualBasic.CompilerServices;
 using Newtonsoft.Json;
 
 namespace CommunityGardenProj.Controllers
 {
-    
+
     public class GardenersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -34,7 +36,7 @@ namespace CommunityGardenProj.Controllers
         // GET: GardenersController
         public async Task<IActionResult> Index()
         {
-     
+
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var gardenerProfile = _context.Gardeners.Where(g => g.IdentityUserId == userId).ToList();
@@ -59,29 +61,29 @@ namespace CommunityGardenProj.Controllers
             HttpClient client = new HttpClient();
             HttpResponseMessage response = await client.GetAsync(url);
 
-            
+
             if (response.IsSuccessStatusCode)
             {
                 string json = await response.Content.ReadAsStringAsync();
                 allGardens = JsonConvert.DeserializeObject<List<Garden>>(json);
-                
+
             }
-          
+
             return allGardens;
 
         }
 
-        public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
-        {
-            var gardens = GetAllGardens();
+        //public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
+        //{
+        //    var gardens = GetAllGardens();
 
-            //var searchByLocation = gardens.Result.Where(g => g.zip ==)
-            //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
-            //var hasVolunteerOpportunities = gardens.Result.Where(g => g.volunteerOpportunities == true).ToDictionary;
-            //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
-            //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
+        //    //var searchByLocation = gardens.Result.Where(g => g.zip ==)
+        //    //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
+        //    //var hasVolunteerOpportunities = gardens.Result.Where(g => g.volunteerOpportunities == true).ToDictionary;
+        //    //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
+        //    //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
 
-        }
+        //}
 
 
         // GET: GardenersController/Details/5
@@ -107,64 +109,46 @@ namespace CommunityGardenProj.Controllers
         }
 
         // GET: GardenersController/Create
-      
+
         public ActionResult Create()
         {
-           
-            
-                return View();
+
+
+            return View();
         }
 
         // POST: GardenersController/Create
         [HttpPost]
 
-        public async Task<IActionResult> Create(GardenerViewModel gardenerViewModel)
+        public async Task<IActionResult> Create(Gardener gardener)
         {
-
-
-            Gardener gardener = new Gardener();
-            Address address = new Address();
-
-
 
             if (ModelState.IsValid)
             {
-
-                var fullAddress = gardenerViewModel.Address.StreetAddress + ", " + gardenerViewModel.Address.City + ", " + gardenerViewModel.Address.State;
-                GeoCode geocode = await _apiCalls.GoogleGeocoding(fullAddress);
+                var geoAddress = gardener.Address.StreetAddress + ", " + gardener.Address.City + ", " + gardener.Address.State;
+                GeoCode geocode = await _apiCalls.GoogleGeocoding(geoAddress);
                 var lat = geocode.results[0].geometry.location.lat;
                 var lng = geocode.results[0].geometry.location.lng;
+
+                gardener.Address.Latitude = lat;
+                gardener.Address.Longitude = lng;
+                _context.Add(gardener.Address);
+                await _context.SaveChangesAsync();
+
+                // _context.Address.Add(gardener.Address);
+
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                gardener.FirstName = gardenerViewModel.Gardener.FirstName;
-                gardener.LastName = gardenerViewModel.Gardener.LastName;
-                gardener.GardenInterest = gardenerViewModel.Gardener.GardenInterest;
-                gardener.Email = gardenerViewModel.Gardener.Email;
-                gardenerViewModel.Gardener.IdentityUserId = userId;
+                gardener.IdentityUserId = userId;
 
-                gardener.IdentityUserId = gardenerViewModel.Gardener.IdentityUserId;
-                address.StreetAddress = gardenerViewModel.Address.StreetAddress;
-                address.State = gardenerViewModel.Address.State;
-                address.City = gardenerViewModel.Address.City;
-                address.Zip = gardenerViewModel.Address.Zip;
-                _context.Add(address);
-                _context.SaveChanges();
-                gardener.Address = gardenerViewModel.Address;
+                gardener.AddressId = gardener.Address.AddressId;
+
                 _context.Add(gardener);
-                _context.SaveChanges();
-                
-               
-                //gardenerViewModel.Address.Latitude = lat;
-                //gardenerViewModel.Address.Longitude = lng;
-                //gardenerViewModel.Gardener.Address = gardenerViewModel.Address;
-                //_context.Add(gardenerViewModel.Address);
-                //_context.Add(gardenerViewModel.Gardener);
-
 
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", gardenerViewModel.Gardener.IdentityUserId);
-            return View(gardenerViewModel);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", gardener.IdentityUserId);
+            return View(gardener);
         }
         // GET: GardenersController/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -189,7 +173,7 @@ namespace CommunityGardenProj.Controllers
 
         public async Task<IActionResult> Edit(int id, Gardener gardener)
         {
-            
+
             if (id != gardener.GardenerId)
             {
                 return NotFound();
@@ -257,9 +241,9 @@ namespace CommunityGardenProj.Controllers
             return _context.Gardeners.Any(e => e.GardenerId == id);
         }
 
-       
 
-       public ActionResult CreateGarden()
+
+        public ActionResult CreateGarden()
         {
             return View();
         }
@@ -280,11 +264,11 @@ namespace CommunityGardenProj.Controllers
             var json = JsonConvert.SerializeObject(garden);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-           
+
 
             var response = await client.PostAsync(url, data);
-           
-            
+
+
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -297,7 +281,7 @@ namespace CommunityGardenProj.Controllers
         public async Task<IActionResult> GardenDetails(int id)
         {
             Garden garden = await _apiCalls.GardenDetailAPI(id);
-            
+
 
             return View(garden);
 
@@ -334,7 +318,8 @@ namespace CommunityGardenProj.Controllers
         }
 
 
-        public async Task<IActionResult> GardensNearMe(int id) {
+        public async Task<IActionResult> GardensNearMe(int id)
+        {
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
@@ -350,12 +335,13 @@ namespace CommunityGardenProj.Controllers
         public async Task<IActionResult> AllGardens()
         {
             var gardens = await GetAllGardens();
-          
+
 
             return View(gardens);
 
         }
 
+       
     }
 
 }
