@@ -34,5 +34,7 @@ namespace Repository.Models
 
         public string PlotSize { get; set; }
 
+        public string Website { get; set; }
+
     }
 }

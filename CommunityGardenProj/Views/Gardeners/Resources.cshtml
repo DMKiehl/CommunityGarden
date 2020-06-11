@@ -1,7 +1,42 @@
-﻿
+﻿@*@model CommunityGardenProj.Models.Gardener*@
 @{
     ViewData["Title"] = "Resources";
 }
+@*<p>
+    <a asp-action="Details" asp-route-id="@Model.GardenerId">Profile</a> |
+    <a asp-action="AllGardens">View All Gardens</a> |
+    <a asp-action="GardensNearMe" asp-route-id="@Model.GardenerId">Gardens Near Me</a> |
+    <a asp-action="ListGardensByInterest" asp-route-id="@Model.GardenerId">My Interest</a> |
+    <a asp-action="CreateGarden">Add a Garden</a> |
+    <a asp-action="Forum">Forum</a> |
+    <a asp-action="Resources">Resources</a>
+    <a asp-action="Edit" asp-route-id="@Model.GardenerId">Edit</a>
+</p>*@
 
 <h1>Resources</h1>
 
+@*<h1>Welcome @Html.DisplayFor(model => model.FirstName)!</h1>*@
+
+<section class="container">
+    <div>
+        <a href="https://www.moneycrashers.com/start-community-garden-benefits/">What is a Community Garden--Benefits and How to Start Your Own</a>
+        <p></p>
+    </div>
+    <div>
+        <a href="https://whatsinyourbackyard.org/">The University of Oklahoma Citizen Science Soil Collection Program</a>
+        <p>Send a sample of your soil to help discover new biomedical compounds</p>
+    </div>
+    <div>
+        <a href="https://datcp.wi.gov/Documents/NMSoilManureLabs.pdf">Wisconsin Certified Soil & Manure Testing Laboratories</a>
+        <p>Resources for Soil Testing in the Midwest</p>
+    </div>    
+    <div>
+        <a href="https://uwlab.soils.wisc.edu/soil-samples/lawn-garden/">University of Wisconsin-Madison Soil and Forage Lab</a>
+        <p>Soil Testing Kits and Analysis</p>
+    </div>    
+    <div>
+        <a href="https://homesoiltest.msu.edu/">Michigan State University Home Soil Test Kit</a>
+        <p>Soil Test Kit and Custom Fertilization Plan</p>
+    </div>
+
+</section>

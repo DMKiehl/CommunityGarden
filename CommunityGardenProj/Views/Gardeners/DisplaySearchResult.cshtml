@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>DisplaySearchResult</h1>
+<h1>Display Search Result</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -98,9 +98,8 @@
                 @Html.DisplayFor(modelItem => item.plotSize)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="GardenDetails" asp-route-id="@item.gardenId">Details</a>
+               
             </td>
         </tr>
 }

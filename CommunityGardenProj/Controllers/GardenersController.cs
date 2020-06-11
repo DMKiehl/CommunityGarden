@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using CommunityGardenProj.ActionFilters;
 using CommunityGardenProj.Contracts;
@@ -113,10 +114,13 @@ namespace CommunityGardenProj.Controllers
                 gardens = gardens.Where(g => g.volunteerOpportunities == model.VolunteerOpportunities).ToList();
             }
 
-            DisplaySearchResult(gardens);
+      
 
             return View("DisplaySearchResult", gardens);
+<<<<<<< HEAD
            
+=======
+>>>>>>> 7bd9fdbd74ce0d380b64a7efe32c00e892b13b87
         }
 
 
@@ -365,12 +369,19 @@ namespace CommunityGardenProj.Controllers
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var address = _context.Address.Where(a => a.AddressId == gardener.AddressId).SingleOrDefault();
+
 
             var nearbyGardens = await GetAllGardens();
-            var gardenerAddress = gardener.Address.City;
-            var matchedGarden = nearbyGardens.Find(a => a.city == gardenerAddress);
+            var gardenerAddress = gardener.Address.State;
+            var matchedGarden = nearbyGardens.Where(a => a.state == gardenerAddress).ToList();
+            GardenViewModel gvm = new GardenViewModel();
+            gvm.Garden = matchedGarden;
+            gvm.Gardener = gardener;
 
-            return View(matchedGarden);
+
+            return View(gvm);
+
         }
 
 
@@ -382,8 +393,11 @@ namespace CommunityGardenProj.Controllers
             return View(gardens);
 
         }
-
-       
+        
+        public IActionResult Resources()
+        {
+            return View();
+        }
     }
 
 }
