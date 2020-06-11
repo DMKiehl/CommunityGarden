@@ -14,6 +14,6 @@ namespace Repository.Contracts
 
         void DeleteGarden(Garden garden);
 
-        IEnumerable<Garden> GetByID(int id);
+        Garden GetByID(int id);
     }
 }

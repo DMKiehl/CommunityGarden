@@ -22,7 +22,10 @@ namespace CommunityGardenProj.Models
 
         [ForeignKey("AddressId")]
         public Address Address { get; set; }
-        public double AddressId { get; set; }
+        
+        public int AddressId { get; set; }
+
+        
 
 
         [ForeignKey("IdentityUser")]
