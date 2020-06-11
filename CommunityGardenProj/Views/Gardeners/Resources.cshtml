@@ -1,10 +1,8 @@
-﻿@model CommunityGardenProj.Models.Gardener
+﻿@*@model CommunityGardenProj.Models.Gardener*@
 @{
     ViewData["Title"] = "Resources";
 }
-<p>
-    @* make as nav bar *@
-
+@*<p>
     <a asp-action="Details" asp-route-id="@Model.GardenerId">Profile</a> |
     <a asp-action="AllGardens">View All Gardens</a> |
     <a asp-action="GardensNearMe" asp-route-id="@Model.GardenerId">Gardens Near Me</a> |
@@ -13,15 +11,16 @@
     <a asp-action="Forum">Forum</a> |
     <a asp-action="Resources">Resources</a>
     <a asp-action="Edit" asp-route-id="@Model.GardenerId">Edit</a>
-</p>
+</p>*@
 
 <h1>Resources</h1>
 
-<h1>Welcome @Html.DisplayFor(model => model.FirstName)!</h1>
+@*<h1>Welcome @Html.DisplayFor(model => model.FirstName)!</h1>*@
 
 <section class="container">
     <div>
         <a href="https://www.moneycrashers.com/start-community-garden-benefits/">What is a Community Garden--Benefits and How to Start Your Own</a>
+        <p></p>
     </div>
     <div>
         <a href="https://whatsinyourbackyard.org/">The University of Oklahoma Citizen Science Soil Collection Program</a>

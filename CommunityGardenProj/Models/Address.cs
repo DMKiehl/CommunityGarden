@@ -12,6 +12,7 @@ namespace CommunityGardenProj.Models
         //public int Id { get; set; }
         public int AddressId { get; set; }
 
+        [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
         public string City { get; set; }
 
