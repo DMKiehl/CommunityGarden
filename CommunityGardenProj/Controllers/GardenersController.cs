@@ -79,8 +79,6 @@ namespace CommunityGardenProj.Controllers
         // GET
         public ActionResult SearchByCriteria()//loads a page where user inputs values
         {
-            SearchByCriteriaViewModel search = new SearchByCriteriaViewModel();
-
             return View();
         }
 

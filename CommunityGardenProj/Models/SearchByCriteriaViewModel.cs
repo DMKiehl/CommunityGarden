@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace CommunityGardenProj.Models
 {
     public class SearchByCriteriaViewModel
@@ -29,8 +28,5 @@ namespace CommunityGardenProj.Models
         [Display(Name = "Search Gardens By Plot Size")]
         public bool SearchByPlotSize { get; set; }
 
-        // bool property for each of the above possible search criteria
-        // (these bool properties represent whether or not the user wants to include that propert in their search)
-        // add a checkbox for each of these bool properties to your view
     }
 }

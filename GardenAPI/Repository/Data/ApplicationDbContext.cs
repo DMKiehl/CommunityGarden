@@ -34,8 +34,8 @@ namespace Repository.Data
                         VolunteerOpportunities = true,
                         Organic = false,
                         Cost = 0,
-                        PlotSize = "Cooperative"
-                        // www.alicesgardenmke.com/
+                        PlotSize = "Cooperative",
+                        Website = "www.alicesgardenmke.com"
                     }
                     );
 
@@ -55,7 +55,8 @@ namespace Repository.Data
                        VolunteerOpportunities = false,
                        Organic = false,
                        Cost = 15,
-                       PlotSize = "10 X 20"
+                       PlotSize = "10 X 20",
+                       Website = ""
                    }
                    );
 
@@ -76,7 +77,8 @@ namespace Repository.Data
                        VolunteerOpportunities = false,
                        Organic = true,
                        Cost = 45,
-                       PlotSize = "10 X 15"
+                       PlotSize = "10 X 15",
+                       Website = "https://urbanecologycenter.org/"
                    }
                    );
 
@@ -97,7 +99,8 @@ namespace Repository.Data
                        VolunteerOpportunities = true,
                        Organic = false,
                        Cost = 20,
-                       PlotSize = "4 X 10"
+                       PlotSize = "4 X 10",
+                       Website = "https://www.ololmke.org/community-garden/"
                    }
                    );
              }
