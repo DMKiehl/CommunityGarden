@@ -98,9 +98,8 @@
                 @Html.DisplayFor(modelItem => item.plotSize)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a asp-action="GardenDetails" asp-route-id="@item.gardenId">Details</a>
+               
             </td>
         </tr>
 }
