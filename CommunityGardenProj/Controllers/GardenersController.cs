@@ -323,12 +323,17 @@ namespace CommunityGardenProj.Controllers
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+           
 
             var nearbyGardens = await GetAllGardens();
-            var gardenerAddress = gardener.Address.City;
-            var matchedGarden = nearbyGardens.Find(a => a.city == gardenerAddress);
+            var gardenerAddress = gardener.Address.State;
+            var matchedGarden = nearbyGardens.Find(a => a.state == gardenerAddress);
+            GardenViewModel gvm = new GardenViewModel();
+            gvm.Garden = matchedGarden;
+            gvm.Gardener = gardener;
 
-            return View(matchedGarden);
+
+            return View(gvm);
         }
 
 
