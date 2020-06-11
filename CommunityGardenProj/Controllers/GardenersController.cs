@@ -74,17 +74,60 @@ namespace CommunityGardenProj.Controllers
 
         }
 
-        //public IQueryable<T> SearchByCriteria()//location(Zip Code?), cost, volunteer opportunities, organic vs. non-organic, plotsize 
-        //{
-        //    var gardens = GetAllGardens();
 
-        //    //var searchByLocation = gardens.Result.Where(g => g.zip ==)
-        //    //var lowCostGardens = gardens.Result.Where(g => g.cost ).;
-        //    //var hasVolunteerOpportunities = gardens.Result.Where(g => g.volunteerOpportunities == true).ToDictionary;
-        //    //var isOrganic = gardens.Result.Where(g => g.organic == true).ToList();
-        //    //var SmallPlotSize = gardens.Result.Where(g => g.plotSize == )
 
-        //}
+        // GET
+        public ActionResult SearchByCriteria()//loads a page where user inputs values
+        {
+            SearchByCriteriaViewModel search = new SearchByCriteriaViewModel();
+
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> SearchByCriteria(SearchByCriteriaViewModel model) //query with the user input
+        {
+
+            var gardens = await GetAllGardens();
+
+            if(model.SearchByCost == true) 
+            {
+                gardens = gardens.Where(g => g.cost == model.Cost).ToList();
+            }
+
+            if (model.SearchByOrganic == true)
+            {
+                gardens = gardens.Where(g => g.organic == model.Organic).ToList();
+            }
+
+            if (model.SearchByPlotSize == true)
+            {
+                gardens = gardens.Where(g => g.plotSize == model.PlotSize).ToList();
+            }
+
+            if (model.SearchByZipCode == true)
+            {
+                gardens = gardens.Where(g => g.zip == model.ZipCode).ToList();
+            }
+
+            if (model.SearchByVolunteerOpportunities == true)
+            {
+                gardens = gardens.Where(g => g.volunteerOpportunities == model.VolunteerOpportunities).ToList();
+            }
+
+            DisplaySearchResult(gardens);
+
+            return View();
+        }
+
+
+        public ActionResult DisplaySearchResult(List<Garden> gardens)
+        {
+
+            return View(gardens);
+        }
+
 
 
         // GET: GardenersController/Details/5
