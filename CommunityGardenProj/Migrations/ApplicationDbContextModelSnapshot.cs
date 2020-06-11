@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CommunityGardenProj.Data.Migrations
+namespace CommunityGardenProj.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -21,8 +21,10 @@ namespace CommunityGardenProj.Data.Migrations
 
             modelBuilder.Entity("CommunityGardenProj.Models.Address", b =>
                 {
-                    b.Property<double>("AddressId")
-                        .HasColumnType("float");
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -47,6 +49,54 @@ namespace CommunityGardenProj.Data.Migrations
                     b.ToTable("Address");
                 });
 
+            modelBuilder.Entity("CommunityGardenProj.Models.Garden", b =>
+                {
+                    b.Property<int>("gardenId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("city")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("cost")
+                        .HasColumnType("int");
+
+                    b.Property<string>("gardenType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("latitude")
+                        .HasColumnType("real");
+
+                    b.Property<float>("longitude")
+                        .HasColumnType("real");
+
+                    b.Property<string>("name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("organic")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("plotSize")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("state")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("streetAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("volunteerOpportunities")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("zip")
+                        .HasColumnType("int");
+
+                    b.HasKey("gardenId");
+
+                    b.ToTable("Garden");
+                });
+
             modelBuilder.Entity("CommunityGardenProj.Models.Gardener", b =>
                 {
                     b.Property<int>("GardenerId")
@@ -54,8 +104,8 @@ namespace CommunityGardenProj.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<double>("AddressId")
-                        .HasColumnType("float");
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -110,15 +160,15 @@ namespace CommunityGardenProj.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "13e73e9b-f0e6-4639-adf0-19a621f80fe5",
-                            ConcurrencyStamp = "7914e27b-ed36-4565-8d32-4e01e8a17cb1",
+                            Id = "c534b578-c75c-418f-9d04-7150692e7816",
+                            ConcurrencyStamp = "751bed60-f5f7-48c7-8c2b-fc6a0713b467",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "1f59cc27-fcfc-48a1-806c-59bcffb3f873",
-                            ConcurrencyStamp = "f56982dd-0d45-4ac4-9bc3-828fc8a50df6",
+                            Id = "4392b5a3-ac75-44cf-9731-4c7b1b3ed9b0",
+                            ConcurrencyStamp = "74cc8cc3-c852-4dd1-a203-29262f54cf8b",
                             Name = "Gardener",
                             NormalizedName = "GARDENER"
                         });

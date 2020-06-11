@@ -1,4 +1,4 @@
-﻿@model CommunityGardenProj.Models.GardenerViewModel
+﻿@model CommunityGardenProj.Models.Gardener
 
 @{
     ViewData["Title"] = "Create";
@@ -6,40 +6,37 @@
 
 <h1>Create</h1>
 
-<h4>GardenerViewModel</h4>
+<h4>Gardener</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for-"Gardener.GardenerId" />
-
-
             <div class="form-group">
-                <label asp-for="Gardener.FirstName" class="control-label"></label>
-                <input asp-for="Gardener.FirstName" class="form-control" />
-                <span asp-validation-for="Gardener.FirstName" class="text-danger"></span>
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Gardener.LastName" class="control-label"></label>
-                <input asp-for="Gardener.LastName" class="form-control" />
-                <span asp-validation-for="Gardener.LastName" class="text-danger"></span>
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Gardener.Email" class="control-label"></label>
-                <input asp-for="Gardener.Email" class="form-control" />
-                <span asp-validation-for="Gardener.Email" class="text-danger"></span>
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Gardener.GardenInterest" class="control-label"></label>
-                <input asp-for="Gardener.GardenInterest" class="form-control" />
-                <span asp-validation-for="Gardener.GardenInterest" class="text-danger"></span>
+                <label asp-for="GardenInterest" class="control-label"></label>
+                <input asp-for="GardenInterest" class="form-control" />
+                <span asp-validation-for="GardenInterest" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for-"Gardener.AddressId" />
-            <input type="hidden" asp-for-"Gardener.IdentityUserId" />
-            <input type="hidden" asp-for-"Address.AddressId" />
-            <input type="hidden" asp-for-"Address.StreetAddress" />
-
+            <div class="form-group">
+                <label asp-for="Address.StreetAddress" class="control-label"></label>
+                <input asp-for="Address.StreetAddress" class="form-control" />
+                <span asp-validation-for="Address.StreetAddress" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Address.City" class="control-label"></label>
                 <input asp-for="Address.City" class="form-control" />
@@ -55,10 +52,9 @@
                 <input asp-for="Address.Zip" class="form-control" />
                 <span asp-validation-for="Address.Zip" class="text-danger"></span>
             </div>
-            <input type="hidden" asp-for-"Address.Latitude" />
-            <input type="hidden" asp-for-"Address.Longitude" />
+            <input type="hidden" asp-for-"AddressId" />
+            <input type="hidden" asp-for-"IdentityUserId" />
 
-         
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -70,6 +66,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
