@@ -116,9 +116,9 @@ namespace CommunityGardenProj.Controllers
                 gardens = gardens.Where(g => g.volunteerOpportunities == model.VolunteerOpportunities).ToList();
             }
 
-            DisplaySearchResult(gardens);
+      
 
-            return View();
+            return View("DisplaySearchResult", gardens);
         }
 
 
@@ -372,7 +372,7 @@ namespace CommunityGardenProj.Controllers
 
             var nearbyGardens = await GetAllGardens();
             var gardenerAddress = gardener.Address.State;
-            var matchedGarden = nearbyGardens.Where(a => a.city == address.City).ToList();
+            var matchedGarden = nearbyGardens.Where(a => a.state == gardenerAddress).ToList();
             GardenViewModel gvm = new GardenViewModel();
             gvm.Garden = matchedGarden;
             gvm.Gardener = gardener;
