@@ -368,12 +368,18 @@ namespace CommunityGardenProj.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var gardener = _context.Gardeners.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             var address = _context.Address.Where(a => a.AddressId == gardener.AddressId).SingleOrDefault();
-            //List<Garden> matchedGarden = new List<Garden>();
+
 
             var nearbyGardens = await GetAllGardens();
+            var gardenerAddress = gardener.Address.State;
             var matchedGarden = nearbyGardens.Where(a => a.city == address.City).ToList();
-         
-            return View(matchedGarden);
+            GardenViewModel gvm = new GardenViewModel();
+            gvm.Garden = matchedGarden;
+            gvm.Gardener = gardener;
+
+
+            return View(gvm);
+
         }
 
 
