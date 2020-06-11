@@ -4,10 +4,11 @@
     ViewData["Title"] = "ListGardensByInterest";
 }
 
-<h1>List Gardens By Interest</h1>
+<h1>Gardens State-Wide By Interest</h1>
 
 <p>
-    <a asp-action="Index">Back to Home</a>
+    <a asp-action="Index">Home</a> |
+    <a asp-action="AllGardens">Back to All Gardens</a>
 </p>
 <table class="table">
     <thead>
@@ -42,7 +43,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.plotSize)
             </th>
-            @*<th></th>*@
+            <th></th>
         </tr>
     </thead>
     <tbody>
