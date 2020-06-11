@@ -10,8 +10,8 @@ namespace CommunityGardenProj.Models
     public class Garden
     {
         [Display(Name = "Garden ID")]
-        public int gardenId { get; set; }
 
+        public int gardenId { get; set; }
         [Display(Name = "Garden Name")]
         public string name { get; set; }
         [Display(Name = "Garden Type")]
@@ -36,6 +36,10 @@ namespace CommunityGardenProj.Models
         public int cost { get; set; }
         [Display(Name = "Plot Size")]
         public string plotSize { get; set; }
+        [Display(Name = "Website")]
+        public string website { get; set; }
     }
+
+
 
 }

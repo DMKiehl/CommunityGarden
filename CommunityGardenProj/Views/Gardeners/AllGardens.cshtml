@@ -16,9 +16,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.name)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.gardenType)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.streetAddress)
             </th>
@@ -37,7 +37,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.longitude)
             </th>*@
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.volunteerOpportunities)
             </th>
             <th>
@@ -48,7 +48,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.plotSize)
-            </th>
+            </th>*@
             <th></th>
         </tr>
     </thead>
@@ -58,9 +58,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.name)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.gardenType)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.streetAddress)
             </td>
@@ -79,7 +79,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.longitude)
             </td>*@
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.volunteerOpportunities)
             </td>
             <td>
@@ -90,7 +90,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.plotSize)
-            </td>
+            </td>*@
             <td>
                 @*<a asp-action="Edit" asp-route-id="@item.gardenId">Edit</a> |*@
                 <a asp-action="GardenDetails" asp-route-id="@item.gardenId">Details</a> 
