@@ -433,7 +433,7 @@ namespace CommunityGardenProj.Controllers
         {
             var question = _context.Discussions.Where(d => d.Id == id).SingleOrDefault();
             Answers answer = new Answers();
-            answer.Discussion = question;
+            answer.QuestionId = question.Id;
             
             return View(answer);
         }

@@ -18,14 +18,16 @@
         @Html.DisplayFor(model => model.Discussion.AskQuestion)
     </dt>
 </div>
+<br>
+<br>
 <table class="table">
     <thead>
-        <tr>
+        @*<tr>
             <th>
                 @Html.DisplayNameFor(model => model.Answers[0].QuestionAnswer)
             </th>
             <th></th>
-        </tr>
+        </tr>*@
     </thead>
     <tbody>
 @foreach (var item in Model.Answers) {
