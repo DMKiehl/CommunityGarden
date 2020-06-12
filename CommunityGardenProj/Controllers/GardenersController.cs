@@ -397,6 +397,27 @@ namespace CommunityGardenProj.Controllers
         {
             return View();
         }
+
+        public ActionResult Forum()
+        {
+            IQueryable<Discussion> questions = _context.Discussions;
+            return View(questions);
+        }
+
+        public ActionResult AskQuestion()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("AskQuestion")]
+
+        public ActionResult AskQuestion(Discussion discussion)
+        {
+            _context.Add(discussion);
+            _context.SaveChanges();
+
+            return RedirectToAction("Forum");
+        }
     }
 
 }

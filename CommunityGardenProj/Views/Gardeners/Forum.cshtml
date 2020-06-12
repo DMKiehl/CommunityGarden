@@ -1,7 +1,43 @@
-﻿
+﻿@model IEnumerable<CommunityGardenProj.Models.Discussion>
+
 @{
     ViewData["Title"] = "Forum";
 }
 
 <h1>Forum</h1>
 
+<p>
+    <a asp-action="AskQuestion">Ask a Question</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AskQuestion)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AskQuestion)
+            </td>
+            
+            <td>
+                
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+               
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
