@@ -96,6 +96,7 @@ namespace CommunityGardenProj.Controllers
 
             if (model.SearchByOrganic == true)
             {
+                model.Organic = true;
                 gardens = gardens.Where(g => g.organic == model.Organic).ToList();
             }
 
@@ -111,6 +112,7 @@ namespace CommunityGardenProj.Controllers
 
             if (model.SearchByVolunteerOpportunities == true)
             {
+                model.VolunteerOpportunities = true;
                 gardens = gardens.Where(g => g.volunteerOpportunities == model.VolunteerOpportunities).ToList();
             }
 

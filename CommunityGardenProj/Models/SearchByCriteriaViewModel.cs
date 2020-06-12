@@ -25,9 +25,9 @@ namespace CommunityGardenProj.Models
         public bool SearchByCost { get; set; }
         [Display(Name = "Search By Zip Code")]
         public bool SearchByZipCode { get; set; }
-        [Display(Name = "Search By Volunteer Opportunities - Please check both boxes")]
+        [Display(Name = "Gardens with Volunteer Opportunities")]
         public bool SearchByVolunteerOpportunities { get; set; }
-        [Display(Name = "Show Only Organic Gardens - Please check both boxes")]
+        [Display(Name = "Show Only Organic Gardens")]
         public bool SearchByOrganic { get; set; }
         [Display(Name = "Search Gardens By Plot Size")]
         public bool SearchByPlotSize { get; set; }
