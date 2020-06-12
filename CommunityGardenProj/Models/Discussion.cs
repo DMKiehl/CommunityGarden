@@ -16,10 +16,6 @@ namespace CommunityGardenProj.Models
 
         public string AskQuestion { get; set; }
 
-        [ForeignKey("Answers")]
        
-        public int AnswerId { get; set; }
-
-        public Answers Answers { get; set; }
     }
 }
