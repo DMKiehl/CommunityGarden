@@ -35,7 +35,7 @@ namespace Repository.Data
                         Organic = false,
                         Cost = 0,
                         PlotSize = "Cooperative",
-                        Website = "www.alicesgardenmke.com"
+                        Website = "https://www.alicesgardenmke.com"
                     }
                     );
 
