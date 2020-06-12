@@ -441,8 +441,6 @@ namespace CommunityGardenProj.Controllers
         [HttpPost, ActionName("AnswerQuestion")]
         public ActionResult AnswerQuestion(Answers answers)
         {
-            
-            
 
             _context.Add(answers);
             _context.SaveChanges();
