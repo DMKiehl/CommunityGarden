@@ -5,75 +5,86 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Search By Criteria</h1>
+    <body>
+        <h1>Search By Criteria</h1>
 
-<h6>Please select what you would like to search by checking the criteria boxes and fill in your search values.</h6>
+        <hr />
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="SearchByCriteria">
-            @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SearchByZipCode" /> @Html.DisplayNameFor(model => model.SearchByZipCode)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="ZipCode" class="control-label"></label>
-                <input asp-for="ZipCode" class="form-control" />
-                <span asp-validation-for="ZipCode" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SearchByCost" /> @Html.DisplayNameFor(model => model.SearchByCost)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cost" class="control-label"></label>
-                <input asp-for="Cost" class="form-control" />
-                <span asp-validation-for="Cost" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SearchByVolunteerOpportunities" /> @Html.DisplayNameFor(model => model.SearchByVolunteerOpportunities)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="VolunteerOpportunities" /> @Html.DisplayNameFor(model => model.VolunteerOpportunities)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SearchByOrganic" /> @Html.DisplayNameFor(model => model.SearchByOrganic)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Organic" /> @Html.DisplayNameFor(model => model.Organic)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SearchByPlotSize" /> @Html.DisplayNameFor(model => model.SearchByPlotSize)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="PlotSize" class="control-label"></label>
-                <input asp-for="PlotSize" class="form-control" />
-                <span asp-validation-for="PlotSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Filter Search" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+        <h5>Please select what you would like to search by checking the criteria boxes and fill in your search values.</h5>
+        <br />
+        <div class="row"><center>
+            <
+            <span class="brlarge"></span>
+            <div class="col-md-4">
+                <form asp-action="SearchByCriteria">
+                    @*<div asp-validation-summary="ModelOnly" class="text-danger"></div>*@
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="SearchByZipCode" /> @Html.DisplayNameFor(model => model.SearchByZipCode)
+                        </label>
+                    </div>
 
-<div>
+                    <div class="form-group">
+                        <label asp-for="ZipCode" class="control-label"></label>
+                        <input asp-for="ZipCode" class="form-control" />
+                        <span asp-validation-for="ZipCode" class="text-danger"></span>
+                    </div>
+
+                    <span class="brlarge"></span>
+
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="SearchByCost" /> @Html.DisplayNameFor(model => model.SearchByCost)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Cost" class="control-label"></label>
+                        <input asp-for="Cost" class="form-control" />
+                        <span asp-validation-for="Cost" class="text-danger"></span>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="SearchByPlotSize" /> @Html.DisplayNameFor(model => model.SearchByPlotSize)
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PlotSize" class="control-label"></label>
+                        <input asp-for="PlotSize" class="form-control" />
+                        <span asp-validation-for="PlotSize" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" asp-for="SearchByVolunteerOpportunities" /> @Html.DisplayNameFor(model => model.SearchByVolunteerOpportunities)
+                        </label>
+                        @*</div>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="VolunteerOpportunities" /> @Html.DisplayNameFor(model => model.VolunteerOpportunities)
+                            </label>
+                        </div>*@
+                        <br />
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="SearchByOrganic" /> @Html.DisplayNameFor(model => model.SearchByOrganic)
+                            </label>
+                        </div>
+                        @*<div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="Organic" /> @Html.DisplayNameFor(model => model.Organic)
+                            </label>
+                        </div>*@
+
+                        <div class="form-group">
+                            <input type="submit" value="Filter Search" class="btn btn-primary" />
+                        </div><
+                </form>
+            </div>
+        </div></center>
+    </body>
+<footer>
     <a asp-action="Index">Back to List</a>
-</div>
+</footer>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
