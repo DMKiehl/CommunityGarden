@@ -8,7 +8,7 @@ namespace CommunityGardenProj.Models
 {
     public class GardenerViewModel
     {    
-       public Gardener Gardener { get; set; }
+        public Gardener Gardener { get; set; }
 
         public Address Address { get; set; }
 
