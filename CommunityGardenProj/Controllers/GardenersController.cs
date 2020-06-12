@@ -421,9 +421,12 @@ namespace CommunityGardenProj.Controllers
 
         public ActionResult QuestionDetails(int id)
         {
-            var question = _context.Discussions.Where(d => d.Id == id).SingleOrDefault();
-            //var answers = 
-            return View(question);
+            //var question = _context.Discussions.Where(d => d.Id == id).SingleOrDefault();
+            //var answers = _context.Answers.Where(a => a.AnswerId == question.AnswerId).ToList();
+            //QuestionViewModel qvm = new QuestionViewModel();
+            //qvm.Discussion = question;
+            //qvm.Answers = answers;
+            return View();
         }
 
         public ActionResult AnswerQuestion()
