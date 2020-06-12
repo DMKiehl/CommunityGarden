@@ -2,19 +2,15 @@
 
 @{
     ViewData["Title"] = "AskQuestion";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>AskQuestion</h1>
+<h1>Ask a Question</h1>
 
-<h4>Discussion</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AskQuestion">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for-"Id" />
-            <input type="hidden" asp-for-"AnswerId" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -36,6 +32,3 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

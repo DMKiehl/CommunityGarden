@@ -8,8 +8,16 @@
 <h1>Question Details</h1>
 
 <p>
-    <a asp-action="AnswerQuestion">Click New</a>
+    <a asp-action="AnswerQuestion" asp-route-id="@Model.Discussion.Id">Answer This question</a>
 </p>
+<div>
+    <dt class="col-sm-10">
+        @Html.DisplayFor(model => model.Discussion.Title)
+    </dt>
+    <dt class="col-sm-10">
+        @Html.DisplayFor(model => model.Discussion.AskQuestion)
+    </dt>
+</div>
 <table class="table">
     <thead>
         <tr>

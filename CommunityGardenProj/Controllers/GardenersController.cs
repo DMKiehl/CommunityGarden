@@ -421,23 +421,30 @@ namespace CommunityGardenProj.Controllers
 
         public ActionResult QuestionDetails(int id)
         {
-            //var question = _context.Discussions.Where(d => d.Id == id).SingleOrDefault();
-            //var answers = _context.Answers.Where(a => a.AnswerId == question.AnswerId).ToList();
-            //QuestionViewModel qvm = new QuestionViewModel();
-            //qvm.Discussion = question;
-            //qvm.Answers = answers;
-            return View();
+            var question = _context.Discussions.Where(d => d.Id == id).SingleOrDefault();
+            var answers = _context.Answers.Where(a => a.QuestionId == question.Id).ToList();
+            QuestionViewModel qvm = new QuestionViewModel();
+            qvm.Discussion = question;
+            qvm.Answers = answers;
+            return View(qvm);
         }
 
-        public ActionResult AnswerQuestion()
+        public ActionResult AnswerQuestion(int id)
         {
-            return View();
+            var question = _context.Discussions.Where(d => d.Id == id).SingleOrDefault();
+            Answers answer = new Answers();
+            answer.Discussion = question;
+            
+            return View(answer);
         }
 
         [HttpPost, ActionName("AnswerQuestion")]
-        public ActionResult AnswerQuestion(Answers answer)
+        public ActionResult AnswerQuestion(Answers answers)
         {
-            _context.Add(answer);
+            
+            
+
+            _context.Add(answers);
             _context.SaveChanges();
             return RedirectToAction("Forum");
         }
