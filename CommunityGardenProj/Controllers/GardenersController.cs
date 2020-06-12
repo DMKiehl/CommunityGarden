@@ -119,6 +119,7 @@ namespace CommunityGardenProj.Controllers
       
 
             return View("DisplaySearchResult", gardens);
+
         }
 
 
