@@ -1,0 +1,31 @@
+﻿@model CommunityGardenProj.Models.QuestionViewModel
+
+@{
+    ViewData["Title"] = "QuestionDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Question Details</h1>
+
+<p>
+    <a asp-action="AnswerQuestion">Click New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Answers[0].QuestionAnswer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Answers) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionAnswer)
+            </td>         
+        </tr>
+}
+    </tbody>
+</table>
