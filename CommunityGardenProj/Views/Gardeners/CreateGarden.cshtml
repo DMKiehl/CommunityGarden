@@ -23,6 +23,16 @@
                 <span asp-validation-for="gardenType" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="gardenType" class="control-label"></label>
+                <select asp-for="gardenType" name="GardenInterest">
+                    <option value="Organic">Organic</option>
+                    <option value="Vegetable">Vegetable</option>
+                    <option value="Ornamental">Ornamental</option>
+                    <option value="Urban Farm">Urban Farm</option>
+                </select>
+                <span asp-validation-for="gardenType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="streetAddress" class="control-label"></label>
                 <input asp-for="streetAddress" class="form-control" />
                 <span asp-validation-for="streetAddress" class="text-danger"></span>

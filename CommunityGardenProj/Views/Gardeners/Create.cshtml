@@ -27,14 +27,21 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             @*<div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>*@
+            <label asp-for="Email" class="control-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <label asp-for="GardenInterest" class="control-label"></label>
-                <input asp-for="GardenInterest" class="form-control" />
-                <span asp-validation-for="GardenInterest" class="text-danger"></span>
+                @*<input asp-for="GardenInterest" class="form-control" />*@
+                @*<span asp-validation-for="GardenInterest" class="text-danger"></span>*@
+                <select asp-for="GardenInterest" name="GardenInterest">
+                    <option value="Organic">Organic</option>
+                    <option value="Vegetable">Vegetable</option>
+                    <option value="Ornamental">Ornamental</option>
+                    <option value="Urban Farm">Urban Farm</option>
+            </select>
+            <span asp-validation-for="GardenInterest" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Address.StreetAddress" class="control-label"></label>
