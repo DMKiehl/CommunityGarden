@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CommunityGardenProj.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200611135806_Initial")]
+    [Migration("20200612150313_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,6 +49,44 @@ namespace CommunityGardenProj.Migrations
                     b.HasKey("AddressId");
 
                     b.ToTable("Address");
+                });
+
+            modelBuilder.Entity("CommunityGardenProj.Models.Answers", b =>
+                {
+                    b.Property<int>("AnswerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("QuestionAnswer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AnswerId");
+
+                    b.ToTable("Answers");
+                });
+
+            modelBuilder.Entity("CommunityGardenProj.Models.Discussion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AnswerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AskQuestion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AnswerId");
+
+                    b.ToTable("Discussions");
                 });
 
             modelBuilder.Entity("CommunityGardenProj.Models.Garden", b =>
@@ -90,6 +128,9 @@ namespace CommunityGardenProj.Migrations
 
                     b.Property<bool>("volunteerOpportunities")
                         .HasColumnType("bit");
+
+                    b.Property<string>("website")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("zip")
                         .HasColumnType("int");
@@ -162,15 +203,15 @@ namespace CommunityGardenProj.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c534b578-c75c-418f-9d04-7150692e7816",
-                            ConcurrencyStamp = "751bed60-f5f7-48c7-8c2b-fc6a0713b467",
+                            Id = "3e71c458-33d4-48cc-be18-b818c6a58876",
+                            ConcurrencyStamp = "be59a80d-bb9e-46bd-b982-1a78d4271fc6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4392b5a3-ac75-44cf-9731-4c7b1b3ed9b0",
-                            ConcurrencyStamp = "74cc8cc3-c852-4dd1-a203-29262f54cf8b",
+                            Id = "8651be1f-7cfc-4fcd-834a-7d2dd1f78486",
+                            ConcurrencyStamp = "c9fef6ab-d9e2-419a-96cf-670f2f7b05e2",
                             Name = "Gardener",
                             NormalizedName = "GARDENER"
                         });
@@ -343,6 +384,15 @@ namespace CommunityGardenProj.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("CommunityGardenProj.Models.Discussion", b =>
+                {
+                    b.HasOne("CommunityGardenProj.Models.Answers", "Answers")
+                        .WithMany()
+                        .HasForeignKey("AnswerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CommunityGardenProj.Models.Gardener", b =>

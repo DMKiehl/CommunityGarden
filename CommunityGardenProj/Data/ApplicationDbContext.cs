@@ -10,7 +10,7 @@ namespace CommunityGardenProj.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        public DbSet<Gardener> Gardeners { get; set; } 
+        public DbSet<Gardener> Gardeners { get; set; }
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
@@ -36,8 +36,12 @@ namespace CommunityGardenProj.Data
             );
         }
 
-        public DbSet<CommunityGardenProj.Models.Garden> Garden { get; set; }
+        public DbSet<Garden> Garden { get; set; }
 
-        public DbSet<CommunityGardenProj.Models.Address> Address { get; set; }
+        public DbSet<Address> Address { get; set; }
+
+        public DbSet<Discussion> Discussions { get; set; }
+
+        public DbSet<Answers> Answers { get; set; }
     }
 }

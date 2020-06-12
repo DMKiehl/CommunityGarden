@@ -26,6 +26,19 @@ namespace CommunityGardenProj.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Answers",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    QuestionAnswer = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Answers", x => x.AnswerId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -81,11 +94,33 @@ namespace CommunityGardenProj.Migrations
                     volunteerOpportunities = table.Column<bool>(nullable: false),
                     organic = table.Column<bool>(nullable: false),
                     cost = table.Column<int>(nullable: false),
-                    plotSize = table.Column<string>(nullable: true)
+                    plotSize = table.Column<string>(nullable: true),
+                    website = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Garden", x => x.gardenId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Discussions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(nullable: true),
+                    AskQuestion = table.Column<string>(nullable: true),
+                    AnswerId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Discussions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Discussions_Answers_AnswerId",
+                        column: x => x.AnswerId,
+                        principalTable: "Answers",
+                        principalColumn: "AnswerId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -227,12 +262,12 @@ namespace CommunityGardenProj.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "c534b578-c75c-418f-9d04-7150692e7816", "751bed60-f5f7-48c7-8c2b-fc6a0713b467", "Admin", "ADMIN" });
+                values: new object[] { "3e71c458-33d4-48cc-be18-b818c6a58876", "be59a80d-bb9e-46bd-b982-1a78d4271fc6", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "4392b5a3-ac75-44cf-9731-4c7b1b3ed9b0", "74cc8cc3-c852-4dd1-a203-29262f54cf8b", "Gardener", "GARDENER" });
+                values: new object[] { "8651be1f-7cfc-4fcd-834a-7d2dd1f78486", "c9fef6ab-d9e2-419a-96cf-670f2f7b05e2", "Gardener", "GARDENER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -274,6 +309,11 @@ namespace CommunityGardenProj.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Discussions_AnswerId",
+                table: "Discussions",
+                column: "AnswerId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Gardeners_AddressId",
                 table: "Gardeners",
                 column: "AddressId");
@@ -302,6 +342,9 @@ namespace CommunityGardenProj.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Discussions");
+
+            migrationBuilder.DropTable(
                 name: "Garden");
 
             migrationBuilder.DropTable(
@@ -309,6 +352,9 @@ namespace CommunityGardenProj.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Answers");
 
             migrationBuilder.DropTable(
                 name: "Address");
