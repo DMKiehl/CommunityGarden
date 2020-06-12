@@ -12,17 +12,7 @@ namespace CommunityGardenProj.Models
 
         public Address Address { get; set; }
 
-        //public string StreetAddress { get; set; }
-        //public string City { get; set; }
-
-        //public string State { get; set; }
-
-        //public double Zip { get; set; }
-
-        //public double Latitude { get; set; }
-
-        //public double Longitude { get; set; }
-
+       
 
     }
 }
