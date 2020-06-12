@@ -11,7 +11,7 @@ namespace CommunityGardenProj.Models
     {
         [Key]
         public int AnswerId { get; set; }
-
+        [Display(Name = "Answer A Question")]
         public string QuestionAnswer { get; set; }
 
         [ForeignKey("Discussion")]

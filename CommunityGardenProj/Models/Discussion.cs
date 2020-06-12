@@ -13,7 +13,7 @@ namespace CommunityGardenProj.Models
         public int Id { get; set; }
 
         public string Title { get; set; }
-
+        [Display(Name = "Ask A Question")]
         public string AskQuestion { get; set; }
 
        
