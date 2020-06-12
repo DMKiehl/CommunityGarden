@@ -418,6 +418,26 @@ namespace CommunityGardenProj.Controllers
 
             return RedirectToAction("Forum");
         }
+
+        public ActionResult QuestionDetails(int id)
+        {
+            var question = _context.Discussions.Where(d => d.Id == id).SingleOrDefault();
+            //var answers = 
+            return View(question);
+        }
+
+        public ActionResult AnswerQuestion()
+        {
+            return View();
+        }
+
+        [HttpPost, ActionName("AnswerQuestion")]
+        public ActionResult AnswerQuestion(Answers answer)
+        {
+            _context.Add(answer);
+            _context.SaveChanges();
+            return RedirectToAction("Forum");
+        }
     }
 
 }
