@@ -5,23 +5,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Display Search Result</h1>
+<h1>Your Search Results</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
+    <a asp-action="Index">Return to Home</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.gardenId)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.name)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.gardenType)
-            </th>
+           
             <th>
                 @Html.DisplayNameFor(model => model.streetAddress)
             </th>
@@ -31,14 +28,8 @@
             <th>
                 @Html.DisplayNameFor(model => model.state)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.zip)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.latitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.longitude)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.volunteerOpportunities)
@@ -52,21 +43,20 @@
             <th>
                 @Html.DisplayNameFor(model => model.plotSize)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.website)
+            </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.gardenId)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gardenType)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.streetAddress)
             </td>
@@ -76,15 +66,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.state)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.zip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.latitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.longitude)
-            </td>
+            </td>         
             <td>
                 @Html.DisplayFor(modelItem => item.volunteerOpportunities)
             </td>
@@ -97,6 +81,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.plotSize)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.website)
+            </td>*@
             <td>
                 <a asp-action="GardenDetails" asp-route-id="@item.gardenId">Details</a>
                

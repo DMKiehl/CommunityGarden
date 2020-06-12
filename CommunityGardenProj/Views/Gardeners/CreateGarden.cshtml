@@ -43,7 +43,7 @@
                 <span asp-validation-for="zip" class="text-danger"></span>
             </div>
             <input type="hidden" asp-for-"latitude" />
-            <input type="hidden" asp-for-"longitude" />        
+            <input type="hidden" asp-for-"longitude" />
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="volunteerOpportunities" /> @Html.DisplayNameFor(model => model.volunteerOpportunities)
@@ -63,6 +63,11 @@
                 <label asp-for="plotSize" class="control-label"></label>
                 <input asp-for="plotSize" class="form-control" />
                 <span asp-validation-for="plotSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="website" class="control-label"></label>
+                <input asp-for="website" class="form-control" />
+                <span asp-validation-for="website" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

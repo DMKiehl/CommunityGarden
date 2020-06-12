@@ -6,14 +6,23 @@
 
 <h1>Welcome @Html.DisplayFor(model => model.FirstName)!</h1>
 
-<p>
-    <a asp-action="Details" asp-route-id="@Model.GardenerId">Profile</a> |
-    <a asp-action="AllGardens">View All Gardens</a> |
-    <a asp-action="GardensNearMe" asp-route-id="@Model.GardenerId">Gardens Near Me</a> |
-    <a asp-action="ListGardensByInterest" asp-route-id="@Model.GardenerId">My Interest</a> |
-    <a asp-action="CreateGarden">Add a Garden</a> |
-    <a asp-action="Forum">Forum</a> |
-    <a asp-action="Resources">Resources</a>
+<body style=" background-image: url('../Images/blueFlowers.jfif');">
 
-</p>
+    <ul>
+        <li> <a asp-action="Details" asp-route-id="@Model.GardenerId">Profile</a> |</li>
+        <br />
+        <li> <a asp-action="AllGardens">View All Gardens</a> |</li>
+        <br />
+        <li> <a asp-action="GardensNearMe" asp-route-id="@Model.GardenerId">Gardens Near Me</a> |</li>
+        <br />
+        <li> <a asp-action="ListGardensByInterest" asp-route-id="@Model.GardenerId">My Interests</a> |</li>
+       <br />
+        <li> <a asp-action="CreateGarden">Add a Garden</a> |</li>
+        <br />
+        <li> <a asp-action="Forum">Forum</a> |</li>
+        <br />
+        <li> <a asp-action="Resources">Resources</a> |</li>
 
+    </ul>
+
+ </body>
