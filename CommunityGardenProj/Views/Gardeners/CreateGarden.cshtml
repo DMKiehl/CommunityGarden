@@ -4,6 +4,8 @@
     ViewData["Title"] = "CreateGarden";
 }
 
+<a asp-action="Index">Back to Home</a>
+
 <h1>Create Garden</h1>
 
 <h4>Garden</h4>
@@ -17,13 +19,10 @@
                 <input asp-for="name" class="form-control" />
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
+       
             <div class="form-group">
                 <label asp-for="gardenType" class="control-label"></label>
-                <input asp-for="gardenType" class="form-control" />
-                <span asp-validation-for="gardenType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="gardenType" class="control-label"></label>
+                <br />
                 <select asp-for="gardenType" name="gardenType">
                     <option value="Organic">Organic</option>
                     <option value="Vegetable">Vegetable</option>
@@ -86,9 +85,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

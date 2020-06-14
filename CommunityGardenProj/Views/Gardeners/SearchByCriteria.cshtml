@@ -4,7 +4,7 @@
     ViewData["Title"] = "SearchByCriteria";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+    <a asp-action="Index">Back to Home</a>
     <body>
         <h1>Search By Criteria</h1>
 
@@ -64,18 +64,18 @@
                         <label class="form-check-label">
                             <input class="form-check-input" asp-for="SearchByVolunteerOpportunities" /> @Html.DisplayNameFor(model => model.SearchByVolunteerOpportunities)
                         </label>
-                        @*</div>
-            <div class="form-group form-check">
+                    </div>
+            @*<div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="VolunteerOpportunities" /> @Html.DisplayNameFor(model => model.VolunteerOpportunities)
                 </label>
             </div>*@
-                        <br />
-                        <div class="form-group form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" asp-for="SearchByOrganic" /> @Html.DisplayNameFor(model => model.SearchByOrganic)
-                            </label>
-                        </div>
+                     <br />
+                    <div class="form-group form-check">
+                         <label class="form-check-label">
+                              <input class="form-check-input" asp-for="SearchByOrganic" /> @Html.DisplayNameFor(model => model.SearchByOrganic)
+                         </label>
+                    </div>
                         @*<div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Organic" /> @Html.DisplayNameFor(model => model.Organic)
@@ -89,9 +89,7 @@
             </div>
         </div>
     </body>
-<footer>
-    <a asp-action="Index">Back to List</a>
-</footer>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
