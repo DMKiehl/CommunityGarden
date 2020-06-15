@@ -17,7 +17,8 @@
 <body>
     <h1>Gardens Near Me</h1>
     <p>
-        <a asp-action="CreateGarden">Create New</a>
+        <a asp-action="CreateGarden">Create New Garden</a> |
+        <a asp-action="Index">Back to Home</a>
     </p>
     <div>
         <table class="table">
@@ -116,9 +117,7 @@
 
 
     </script>
-    <div>
-        <a asp-action="Index">Back to List</a>
-    </div>
+  
     <script src="https://maps.googleapis.com/maps/api/js?key=@APIKey.GoogleMapsAPI&callback=initMap" async defer></script>
 
 </body>

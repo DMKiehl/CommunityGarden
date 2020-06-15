@@ -8,7 +8,7 @@
 <header>
     <img src="~/Images/delight.jpg" width="1100" height="300" style="vertical-align:top">
 </header>
-
+<a asp-action="Index">Back to Home</a>
 <h1>Forum</h1>
 <p>
     <a asp-action="AskQuestion">Ask a Question</a>
@@ -22,26 +22,27 @@
             <th>
                 @Html.DisplayNameFor(model => model.AskQuestion)
             </th>
-            
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AskQuestion)
-            </td>
-            
-            <td>
-                
-                <a asp-action="QuestionDetails" asp-route-id="@item.Id">Details</a> |
-               
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AskQuestion)
+                </td>
+
+                <td>
+
+                    <a asp-action="QuestionDetails" asp-route-id="@item.Id">Answer Question and View Replies</a>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
